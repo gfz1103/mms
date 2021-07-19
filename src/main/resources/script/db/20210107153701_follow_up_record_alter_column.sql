@@ -1,0 +1,8 @@
+ALTER TABLE `follow_up_record`
+MODIFY COLUMN `HFR` int NULL DEFAULT NULL COMMENT '回访人ID' AFTER `HFSJ`;
+
+ALTER TABLE `follow_up_record`
+MODIFY COLUMN `SFFS` int unsigned NULL DEFAULT NULL COMMENT '随访方式' AFTER `HFR`;
+
+ALTER TABLE `follow_up_record`
+MODIFY COLUMN `SFYY` int unsigned NULL DEFAULT NULL COMMENT '失访原因' AFTER `CLQK`;

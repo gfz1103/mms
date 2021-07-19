@@ -1,0 +1,2 @@
+ALTER TABLE `amqc_kjywsycs`
+ADD COLUMN `MZSFYXSYTSJKJYW` int NULL DEFAULT 0 COMMENT '门诊是否允许使用特殊级抗菌药物 0不能使用/1可以使用' AFTER `MZSFYXSYKJYW`;

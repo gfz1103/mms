@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_处方_抗菌药物申请记录 -->
+<mapper namespace="com.buit.mms.antimi.dao.OpCfKjywsqjlDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id as id,ypxh as ypxh,ypmc as ypmc,ts as ts,ypyf as ypyf,loginname as loginname,password as password,usereason as usereason,sqrq as sqrq,sqdh as sqdh,zt as zt,gkfs as gkfs,jzxh as jzxh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_CF_KJYWSQJL (
+            id ,
+            ypxh ,
+            ypmc ,
+            ts ,
+            ypyf,
+            loginname ,
+            password ,
+            usereason ,
+            sqrq ,
+            sqdh ,
+            zt ,
+            gkfs ,
+            jzxh
+        ) VALUES (
+            #{id} ,
+            #{ypxh} ,
+            #{ypmc} ,
+            #{ts} ,
+            #{ypyf},
+            #{loginname} ,
+            #{password} ,
+            #{usereason} ,
+            #{sqrq} ,
+            #{sqdh} ,
+            #{zt} ,
+            #{gkfs} ,
+            #{jzxh}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE OP_CF_KJYWSQJL SET
+            ypxh = #{ypxh} ,
+            ypmc = #{ypmc} ,
+            ts = #{ts} ,
+            loginname = #{loginname} ,
+            password = #{password} ,
+            usereason = #{usereason} ,
+            sqrq = #{sqrq} ,
+            sqdh = #{sqdh} ,
+            zt = #{zt} ,
+            gkfs = #{gkfs} ,
+            jzxh = #{jzxh}
+        WHERE
+            id = #{id}
+            -->
+    </update>
+    <update id="updateZt">
+        UPDATE OP_CF_KJYWSQJL SET
+            zt = #{zt}
+        WHERE
+            sqdh = #{sqdh}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_CF_KJYWSQJL WHERE
+        id = #{id}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_CF_KJYWSQJL <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpCfKjywsqjl">
+        SELECT <include refid="columns" />
+            FROM OP_CF_KJYWSQJL
+            WHERE
+        id = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND id = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypxh)"> -->
+<!--                     AND ypxh = #{ypxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypmc)"> -->
+<!--                     AND ypmc = #{ypmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ts)"> -->
+<!--                     AND ts = #{ts} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(loginname)"> -->
+<!--                     AND loginname = #{loginname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(password)"> -->
+<!--                     AND password = #{password} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(usereason)"> -->
+<!--                     AND usereason = #{usereason} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqrq)"> -->
+<!--                     AND sqrq = #{sqrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqdh)">-->
+<!--                     AND sqdh = #{sqdh}-->
+<!--                </if>-->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND zt = #{zt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gkfs)"> -->
+<!--                     AND gkfs = #{gkfs} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+                     AND jzxh = #{jzxh}
+                </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_CF_KJYWSQJL
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpCfKjywsqjl">
+        SELECT <include refid="columns" />
+        FROM OP_CF_KJYWSQJL
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="selectIsExit" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM op_cf_kjywsqjl
+        WHERE ypxh = #{ypxh} AND jzxh = #{jzxh}
+    </select>
+
+    <select id="queryCfkjwsqjl" resultType="com.buit.mms.antimi.model.OpCfKjywsqjl">
+        SELECT <include refid="columns" />
+        FROM OP_CF_KJYWSQJL
+        WHERE ypxh = #{ypxh} AND jzxh = #{jzxh} order by sqrq desc limit 1
+    </select>
+</mapper>
+

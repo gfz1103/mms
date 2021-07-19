@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 危急值记录表 -->
+<mapper namespace="com.buit.mms.safety.dao.AdvBgdjDao">
+
+
+
+    <select id="queryListByCond" resultType="com.buit.mms.safety.response.ReportInfoResp">
+        select * from adv_bgdj
+        <where>
+            ${@com.buit.his.pha.commons.util.SqlConverterUtil@transfer(cond)}
+        </where>
+    </select>
+
+    <insert id="insert">
+        insert into adv_bgdj(jgid,sjlb,sjxzid,fssj,fsdd,sjms,bgrgh,bgks,bgsj,sjyy,zdlc,wjbh,zcjl,qtsm,cljg,zrks,zrfzr,zrtbsj)
+        values(#{jgid},#{sjlb},#{sjxzid},#{fssj},#{fsdd},#{sjms},#{bgrgh},#{bgks},#{bgsj},#{sjyy},#{zdlc},#{wjbh},#{zcjl},#{qtsm},#{cljg},#{zrks},#{zrfzr},#{zrtbsj})
+    </insert>
+
+    <update id="update">
+        update adv_bgdj
+        set sjlb=#{sjlb},
+            sjxzid=#{sjxzid},
+            fssj=#{fssj},
+            fsdd=#{fsdd},
+            sjms=#{sjms},
+            bgrgh=#{bgrgh},
+            bgks=#{bgks},
+            bgsj=#{bgsj},
+            sjyy=#{sjyy},
+            zdlc=#{zdlc},
+            wjbh=#{wjbh},
+            zcjl=#{zcjl},
+            qtsm=#{qtsm},
+            cljg=#{cljg},
+            zrks=#{zrks},
+            zrfzr=#{zrfzr},
+            zrtbsj=#{zrtbsj}
+        where id=#{id}
+    </update>
+    <update id="updateStatusById">
+        update adv_bgdj
+        set ${column}=#{status}
+        where id=#{id}
+    </update>
+    <select id="getById" resultType="com.buit.mms.safety.model.AdvBgdj">
+        select * from adv_bgdj where id=#{id}
+    </select>
+    <delete id="delete">
+        delete from adv_bgdj where id=#{id}
+    </delete>
+    <update id="approval">
+        update adv_bgdj
+        set sjzgryj=#{shyj},sjzgbm=#{ksid},sjzgfzr=#{shgh},sjzgtbsj=#{shsj},shbz=1,shjg=#{shjg}
+        where id=#{id}
+    </update>
+    <update id="analysis">
+        update adv_bgdj
+        set ywkyj=#{ywkyj} ,fxbz=1
+        where id=#{id}
+    </update>
+    <select id="countStatistics" resultType="com.buit.mms.safety.response.ReportStatisticsResp">
+        select ${type.column} as name,count(1) as `value`
+        from adv_bgdj
+        where shbz=1 and shjg=1
+        <if test="@sqlt.Ognl@isNotEmpty(fsrqStart)">and date_format(fssj,'%Y-%m-%d') >= #{fsrqStart}</if>
+        <if test="@sqlt.Ognl@isNotEmpty(fsrqEnd)">and #{fsrqEnd} >= date_format(fssj,'%Y-%m-%d')</if>
+        group by ${type.column}
+    </select>
+</mapper>
+

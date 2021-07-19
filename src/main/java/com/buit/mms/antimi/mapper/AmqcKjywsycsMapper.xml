@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 抗菌药物使用参数 -->
+<mapper namespace="com.buit.mms.antimi.dao.AmqcKjywsycsDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        YLJGD as yljgd,MZSFYXSYKJYW as mzsfyxsykjyw,MZSFYXSYTSJKJYW as mzsfyxsytsjkjyw,MZYXSYZDTS as mzyxsyzdts,MZCTSSYGKFS as mzctssygkfs,YJSYKJYWGKFS as yjsykjywgkfs,YJSYKJYWZDTS as yjsykjywzdts
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO AMQC_KJYWSYCS (
+            YLJGD ,
+            MZSFYXSYKJYW ,
+            MZSFYXSYTSJKJYW ,
+            MZYXSYZDTS ,
+            MZCTSSYGKFS ,
+            YJSYKJYWGKFS ,
+            YJSYKJYWZDTS
+        ) VALUES (
+            #{yljgd} ,
+            #{mzsfyxsykjyw} ,
+            #{mzsfyxsytsjkjyw} ,
+            #{mzyxsyzdts} ,
+            #{mzctssygkfs} ,
+            #{yjsykjywgkfs} ,
+            #{yjsykjywzdts}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE AMQC_KJYWSYCS SET
+            MZSFYXSYKJYW = #{mzsfyxsykjyw} ,
+            MZSFYXSYTSJKJYW = #{mzsfyxsytsjkjyw} ,
+            MZYXSYZDTS = #{mzyxsyzdts} ,
+            MZCTSSYGKFS = #{mzctssygkfs} ,
+            YJSYKJYWGKFS = #{yjsykjywgkfs} ,
+            YJSYKJYWZDTS = #{yjsykjywzdts}
+        WHERE
+            YLJGD = #{yljgd}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM AMQC_KJYWSYCS WHERE
+        YLJGD = #{yljgd}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM AMQC_KJYWSYCS <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="AmqcKjywsycs">
+        SELECT <include refid="columns" />
+            FROM AMQC_KJYWSYCS
+            WHERE
+        YLJGD = #{yljgd}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yljgd)"> -->
+<!--                     AND YLJGD = #{yljgd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzsfyxsykjyw)"> -->
+<!--                     AND MZSFYXSYKJYW = #{mzsfyxsykjyw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzyxsyzdts)"> -->
+<!--                     AND MZYXSYZDTS = #{mzyxsyzdts} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzctssygkfs)"> -->
+<!--                     AND MZCTSSYGKFS = #{mzctssygkfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yjsykjywgkfs)"> -->
+<!--                     AND YJSYKJYWGKFS = #{yjsykjywgkfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yjsykjywzdts)"> -->
+<!--                     AND YJSYKJYWZDTS = #{yjsykjywzdts} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM AMQC_KJYWSYCS
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="AmqcKjywsycs">
+        SELECT <include refid="columns" />
+        FROM AMQC_KJYWSYCS
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

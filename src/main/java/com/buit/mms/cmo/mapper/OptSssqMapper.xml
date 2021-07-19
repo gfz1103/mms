@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 危急值记录表 -->
+<mapper namespace="com.buit.mms.cmo.dao.OptSssqDao">
+
+    <sql id="column">
+        sqdh,jgid,mzhm,ssks,sqks,sqys,sqrq,ssrq,ssnm,ssys,ssyz,ssez,sssz,mzdm,mzys,czgh,nssmc,ssjb,ssbz,sjys,sjyj,zyhm,brid,sqzd,brks,sqlx,zyh,fyxh,mzmc,ssmc,jzlsh,glbz,tsss,bqbz,sslx,sszs,spyj,spys,spbz,zfbz,ywbz,zdssbz,spsj,sstc,sqjg,jzkh,bszy,hgjcs,hzzqtyqk,ssbw,sstw,ssbx,sfjhzss,cfss,zrw,qkdj
+    </sql>
+
+    <select id="getById" resultType="com.buit.mms.cmo.model.OptSssq">
+        select <include refid="column"/>
+        from opt_sssq
+        where sqdh=#{sqdh}
+    </select>
+
+    <update id="save">
+        replace into opt_sssq(<include refid="column" />)
+        values(#{sqdh},#{jgid},#{mzhm},#{ssks},#{sqks},#{sqys},#{sqrq},#{ssrq},#{ssnm},#{ssys},#{ssyz},#{ssez},#{sssz},#{mzdm},#{mzys},#{czgh},#{nssmc},#{ssjb},#{ssbz},#{sjys},#{sjyj},#{zyhm},#{brid},#{sqzd},#{brks},#{sqlx},#{zyh},#{fyxh},#{mzmc},#{ssmc},#{jzlsh},#{glbz},#{tsss},#{bqbz},#{sslx},#{sszs},#{spyj},#{spys},#{spbz},#{zfbz},#{ywbz},#{zdssbz},#{spsj},#{sstc},#{sqjg},#{jzkh},#{bszy},#{hgjcs},#{hzzqtyqk},#{ssbw},#{sstw},#{ssbx},#{sfjhzss},#{cfss},#{zrw},#{qkdj})
+    </update>
+
+    <update id="updateZfbzBySqdh">
+        update opt_sssq set zfbz=1-zfbz
+        where sqdh=#{sqdh}
+    </update>
+
+    <update id="commit">
+        update opt_sssq set spyj=#{spyj},spys=#{spys},spbz=1,spsj=#{spsj}
+        where sqdh=#{sqdh}
+    </update>
+    <select id="queryExamineList" resultType="com.buit.mms.cmo.response.OperationApplyResp">
+        select a.*,b.brxm,b.brxb,b.csny,ifnull(c.brks,a.BRKS) as ks,c.brbq as bq,c.brch as ch,e.jsmc as szzc,c.RYRQ as ryrq
+        from opt_sssq a
+        inner join mpi_brda b on a.brid=b.brid
+        inner join hr_personnel d on a.ssys=d.PERSONID
+        left join dic_yljs e on d.MEDICALROLES=e.jsxh
+        left join im_hzry c on a.SQLX=2 and a.zyh=c.zyh
+        <where>
+            <if test="type==@com.buit.mms.cmo.enums.OperationTypeEnum@major"> and a.zdssbz=1 and tsss is null</if>
+            <if test="type==@com.buit.mms.cmo.enums.OperationTypeEnum@special"> and a.zdssbz=0 and tsss is not null </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sqks)"> and a.sqks=#{sqks}</if>
+            <if test="@sqlt.Ognl@isNotEmpty(spbz)"> and a.spbz=#{spbz} </if>
+        </where>
+    </select>
+    <select id="getDetailBySqdh" resultType="com.buit.mms.cmo.response.OperationApplyResp">
+        select a.*,b.brxm,b.brxb,b.csny,ifnull(c.brks,a.BRKS) as ks,c.brbq as bq,c.brch as ch,e.jsmc as szzc,c.ryrq as ryrq,f.*
+        from opt_sssq a
+        inner join mpi_brda b on a.brid=b.brid
+        inner join hr_personnel d on a.ssys=d.PERSONID
+        inner join ss_jyjg f on a.sqdh=f.sqdh
+        left join dic_yljs e on d.MEDICALROLES=e.jsxh
+        left join im_hzry c on a.SQLX=2 and a.zyh=c.zyh
+        where a.sqdh=#{sqdh}
+    </select>
+
+    <update id="updateTzztBySqdh">
+        update opt_sssq set tzzt = 1, tztime = sysdate(), tzgh = #{tzgh}
+          where sqdh = #{sqdh}
+           and (tztime is null or tzgh is null)
+    </update>
+    <delete id="delete">
+        delete from opt_sssq where sqdh=#{sqdh}
+    </delete>
+    <select id="queryList" resultType="com.buit.mms.cmo.response.OperationApplyResp">
+        select a.*,b.brxm,b.brxb,b.csny,ifnull(c.brks,a.BRKS) as ks,c.brbq as bq,c.brch as ch,e.jsmc as szzc,case when ap.sqdh is null then 0 else 1 end as ssap
+        from opt_sssq a
+        inner join mpi_brda b on a.brid=b.brid
+        inner join hr_personnel d on a.ssys=d.PERSONID
+        left join dic_yljs e on d.MEDICALROLES=e.jsxh
+        left join im_hzry c on a.SQLX=2 and a.zyh=c.zyh
+        left join ss_ssap ap on a.sqdh=ap.sqdh
+        where a.sqlx=#{sqlx} and a.sqys=#{sqys}
+        <if test="ssap!=-1">
+            <if test="ssap==1">and a.sqdh in (select sqdh from ss_ssap where jgid=a.jgid)</if>
+            <if test="ssap==0">and a.sqdh not in (select sqdh from ss_ssap where jgid=a.jgid)</if>
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(startDate)">and date_format(a.SQRQ,'%Y-%m-%d')>=#{startDate}</if>
+        <if test="@sqlt.Ognl@isNotEmpty(endDate)">and #{endDate}>=date_format(a.SQRQ,'%Y-%m-%d')</if>
+        <if test="@sqlt.Ognl@isNotEmpty(ssys)">and a.SSYS=#{ssys}</if>
+        <if test="@sqlt.Ognl@isNotEmpty(brks)">and a.brks=#{brks}</if>
+        <if test="@sqlt.Ognl@isNotEmpty(spbz)">and a.spbz=#{spbz}</if>
+        <if test="@sqlt.Ognl@isNotEmpty(brid)">and a.brid=#{brid}</if>
+    </select>
+
+    <select id="queryYszc" resultType="java.lang.String">
+        select b.jsmc
+        from hr_personnel a
+        inner join dic_yljs b on a.MEDICALROLES=b.jsxh
+        where a.PERSONID=#{ysgh}
+    </select>
+
+    <update id="saveJyjg">
+        replace into ss_jyjg(sqdh,ygjg,bgjg,mdjg,hivjg,gyxgky) values(#{sqdh},#{ygjg},#{bgjg},#{mdjg},#{hivjg},#{gyxgky})
+    </update>
+    <select id="findNotifyApplyDetail" resultType="com.buit.mms.cmo.dto.OperationNotifyApplyParamDto">
+        SELECT
+            d.OFFICENAME AS brks,
+            d1.OFFICENAME AS brbq,
+            a.zyh,
+            date_format( now(), '%Y-%m-%d %H:%i:%s' ) AS dyrq,
+            a.sqrq AS sqrq,
+            b.brxm,
+            date_format( b.csny, '%Y-%m-%d' ) AS csny,
+            b.brxb,
+            c.brch,
+            date_format( a.ssrq, '%Y-%m-%d %H:%i:%s' ) AS sssj,
+            a.sqzd,
+            a.ssbw,
+            a.mzmc,
+            a.sstc,
+            a.sstw,
+            a.ssjb AS ssdj,
+            e1.PERSONNAME AS sqys,
+            a.ssbx,
+            CASE WHEN f.ygjg =- 1 THEN '阴性' ELSE '阳性' END AS yg,
+            CASE WHEN f.bgjg =- 1 THEN '阴性' ELSE '阳性' END AS bg,
+            CASE WHEN f.mdjg =- 1 THEN '阴性' ELSE '阳性' END AS md,
+            CASE WHEN f.hivjg =- 1 THEN '阴性' ELSE '阳性' END AS hiv,
+            CASE  WHEN f.gyxgky =- 1 THEN '阴性' ELSE '阳性' END AS gyxgky,
+            CASE  WHEN a.ywbz =1 THEN '择期' ELSE '急诊' END AS ssfl,
+            e2.personname AS ssys,
+            e3.personname AS ssyz,
+            e4.personname AS sssz,
+            CASE  WHEN a.sfjhzss = 0 THEN '否' ELSE '是' END AS zcss,
+            CASE WHEN a.cfss = 0 THEN '否' ELSE '是' END AS cfss,
+            case when a.zrw = 0 then '无' else '有' end as zrw,
+            a.qkdj,
+            g1.ssmc
+        FROM
+            opt_sssq a
+            INNER JOIN mpi_brda b ON a.brid = b.brid
+            LEFT JOIN cmo_ssxmgx g ON g.fyxh = a.ssnm
+            left JOIN dic_ssbm g1 ON g.ssxh = g1.id
+            LEFT JOIN im_hzry c ON a.SQLX = 2
+            AND a.zyh = c.zyh
+            LEFT JOIN dic_kszd d ON d.id = c.BRKS
+            LEFT JOIN dic_kszd d1 ON d1.id = c.brbq
+            LEFT JOIN hr_personnel e1 ON e1.personid = a.sqys
+            LEFT JOIN hr_personnel e2 ON e2.personid = a.ssys
+            LEFT JOIN hr_personnel e3 ON e3.personid = a.ssyz
+            LEFT JOIN hr_personnel e4 ON e4.personid = a.ssez
+            LEFT JOIN ss_jyjg f ON f.sqdh = a.sqdh
+        WHERE
+            a.sqdh = #{sqdh}
+    </select>
+
+    <select id="queryByZyh" resultType="com.buit.mms.cmo.response.IOptSssqResp">
+        select <include refid="column"/>
+        from opt_sssq
+        where zyh=#{zyh}
+    </select>
+
+    <select id="findClinicOperationData" resultType="com.buit.mms.cmo.dto.ClinicOperationNotifyApplyParamDto">
+        select b.brxm,date_format( b.csny, '%Y-%m-%d' ) AS csny,b.brxb,a.mzhm,a.ssrq,c.ssmc,a.sqzd as sqzd,d.personname as ssys,a.sjyj as clyj,a.ssbz,a.mzmc
+        from opt_sssq a
+        INNER JOIN mpi_brda b ON a.brid = b.brid
+        inner join dic_ssbm c on a.ssnm=c.id
+        LEFT JOIN hr_personnel d ON d.personid = a.ssys
+        where a.sqdh=#{sqdh}
+    </select>
+</mapper>
+

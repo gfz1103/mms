@@ -1,0 +1,2 @@
+ALTER TABLE `follow_up_sz`
+MODIFY COLUMN `PYDM` varchar(10) NULL DEFAULT NULL COMMENT '拼音码' AFTER `jgid`;

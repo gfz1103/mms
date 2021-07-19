@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 抗菌药物使用申请药品表 -->
+<mapper namespace="com.buit.mms.antimi.dao.AmqcKjywsysqypDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        YLJGD as yljgd,SQDH as sqdh,XH as xh,YPXH as ypxh,YPCD as ypcd,YPGG as ypgg,YCSL as ycsl,YFDW as yfdw,YPYF as ypyf,SYSJ as sysj
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO AMQC_KJYWSYSQYP (
+            YLJGD ,
+            SQDH ,
+            XH ,
+            YPXH ,
+            YPCD ,
+            YPGG ,
+            YCSL ,
+            YFDW ,
+            YPYF ,
+            SYSJ 
+        ) VALUES (
+            #{yljgd} ,
+            #{sqdh} ,
+            #{xh} ,
+            #{ypxh} ,
+            #{ypcd} ,
+            #{ypgg} ,
+            #{ycsl} ,
+            #{yfdw} ,
+            #{ypyf} ,
+            #{sysj} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE AMQC_KJYWSYSQYP SET
+            YLJGD = #{yljgd} ,
+            SQDH = #{sqdh} ,
+            YPXH = #{ypxh} ,
+            YPCD = #{ypcd} ,
+            YPGG = #{ypgg} ,
+            YCSL = #{ycsl} ,
+            YFDW = #{yfdw} ,
+            YPYF = #{ypyf} ,
+            SYSJ = #{sysj} 
+        WHERE 
+            XH = #{xh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM AMQC_KJYWSYSQYP WHERE
+        XH = #{xh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM AMQC_KJYWSYSQYP <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="AmqcKjywsysqyp">
+        SELECT <include refid="columns" />
+            FROM AMQC_KJYWSYSQYP 
+            WHERE 
+        XH = #{xh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+                <if test="@sqlt.Ognl@isNotEmpty(yljgd)">
+                     AND YLJGD = #{yljgd} 
+                </if> 
+                <if test="@sqlt.Ognl@isNotEmpty(sqdh)"> 
+                    AND SQDH = #{sqdh}
+                </if> 
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xh)"> -->
+<!--                     AND XH = #{xh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypxh)"> -->
+<!--                     AND YPXH = #{ypxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypcd)"> -->
+<!--                     AND YPCD = #{ypcd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypgg)"> -->
+<!--                     AND YPGG = #{ypgg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ycsl)"> -->
+<!--                     AND YCSL = #{ycsl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yfdw)"> -->
+<!--                     AND YFDW = #{yfdw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypyf)"> -->
+<!--                     AND YPYF = #{ypyf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sysj)"> -->
+<!--                     AND SYSJ = #{sysj} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM AMQC_KJYWSYSQYP 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="AmqcKjywsysqyp">
+        SELECT <include refid="columns" />
+        FROM AMQC_KJYWSYSQYP 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <!-- 查询抗菌药物信息 -->
+    <select id="queryKjywYpInfo" resultType="com.buit.mms.antimi.response.AmqcKjywsysqypResp">
+       select a.sqdh,
+			a.xh,
+			a.ypxh,
+			a.ypcd,
+			a.ypgg,
+			a.ycsl,
+			a.yfdw,
+			a.ypyf,
+			a.sysj,
+			b.ypmc 
+       		from 
+       		amqc_kjywsysqyp a, drugs_typk b 
+		 where a.ypxh = b.ypxh
+            and a.yljgd = #{jgid} 
+            and a.sqdh = #{sqdh}
+    </select>
+    
+    <!-- 抗菌药物天数校验 -->
+    <select id="checkDaysKjyw" resultType="long">
+      select count( 1 ) 
+		from amqc_kjywsysqyp 
+		where datediff(now(), #{kssj}) > sysj
+          and yljgd = #{jgid} 
+          and sqdh = #{sqdh}
+          and ypxh = #{ypxh}
+          and ypcd = #{ypcd}
+    </select>
+</mapper>
+

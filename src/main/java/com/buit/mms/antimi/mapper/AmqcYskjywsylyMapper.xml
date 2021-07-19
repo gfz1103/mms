@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 医生抗菌药物使用理由表 -->
+<mapper namespace="com.buit.mms.antimi.dao.AmqcYskjywsylyDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,YLJGD as yljgd,SYLY as syly,LX as lx,KSDM as ksdm,YSDM as ysdm,PYM as pym,WBM as wbm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO AMQC_YSKJYWSYLY (
+            JLXH ,
+            YLJGD ,
+            SYLY ,
+            LX ,
+            KSDM ,
+            YSDM ,
+            PYM ,
+            WBM 
+        ) VALUES (
+            #{jlxh} ,
+            #{yljgd} ,
+            #{syly} ,
+            #{lx} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{pym} ,
+            #{wbm} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE AMQC_YSKJYWSYLY SET
+            YLJGD = #{yljgd} ,
+            SYLY = #{syly} ,
+            LX = #{lx} ,
+            KSDM = #{ksdm} ,
+            YSDM = #{ysdm} ,
+            PYM = #{pym} ,
+            WBM = #{wbm} 
+        WHERE 
+            JLXH = #{jlxh}          
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM AMQC_YSKJYWSYLY WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM AMQC_YSKJYWSYLY <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="AmqcYskjywsyly">
+        SELECT <include refid="columns" />
+            FROM AMQC_YSKJYWSYLY 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yljgd)"> -->
+<!--                     AND YLJGD = #{yljgd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(syly)"> -->
+<!--                     AND SYLY = #{syly} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lx)"> -->
+<!--                     AND LX = #{lx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pym)"> -->
+<!--                     AND PYM = #{pym} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wbm)"> -->
+<!--                     AND WBM = #{wbm} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM AMQC_YSKJYWSYLY 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="AmqcYskjywsyly">
+        SELECT <include refid="columns" />
+        FROM AMQC_YSKJYWSYLY 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <!-- 医生使用理由分页查询信息 -->
+    <select id="queryInfo" resultType="com.buit.mms.antimi.response.AmqcYskjywsylyResp">
+   		select a.jlxh as jlxh,
+	   		a.yljgd as yljgd,
+	   		a.syly as syly,
+	   		a.lx as lx,
+	   		a.ksdm as ksdm,
+	   		a.ysdm as ysdm,
+	   		a.pym as pym,
+	   		a.wbm as wbm,
+	   		b.personname as personname,
+	   		c.officename as officename
+		from amqc_yskjywsyly a
+		left join hr_personnel b on a.ysdm = b.personid 
+		and a.yljgd = b.organizcode
+		left join dic_kszd c on a.ksdm = c.id 
+		and a.yljgd = c.organizcode
+		where a.yljgd = #{jgid}
+        <if test="@sqlt.Ognl@isNotEmpty(lx)"> 
+             and a.lx = #{lx} 
+        </if> 
+        <if test="@sqlt.Ognl@isNotEmpty(syly)"> 
+             and a.syly like concat(concat('%',#{syly}),'%') 
+        </if>
+        order by a.jlxh
+    </select>
+</mapper>
+

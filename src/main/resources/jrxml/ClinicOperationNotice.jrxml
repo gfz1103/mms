@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ClinicOperationNotice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="23d9c67c-1002-44a4-8831-598c48e3d1bb">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="brxm" class="java.lang.String">
+		<parameterDescription><![CDATA[病人姓名]]></parameterDescription>
+	</parameter>
+	<parameter name="csny" class="java.lang.String">
+		<parameterDescription><![CDATA[出生日期]]></parameterDescription>
+	</parameter>
+	<parameter name="brxb" class="java.lang.String">
+		<parameterDescription><![CDATA[病人性别]]></parameterDescription>
+	</parameter>
+	<parameter name="brnl" class="java.lang.String">
+		<parameterDescription><![CDATA[病人年龄]]></parameterDescription>
+	</parameter>
+	<parameter name="mzhm" class="java.lang.String">
+		<parameterDescription><![CDATA[门诊号]]></parameterDescription>
+	</parameter>
+	<parameter name="sssj" class="java.lang.String">
+		<parameterDescription><![CDATA[手术日期]]></parameterDescription>
+	</parameter>
+	<parameter name="ssmc" class="java.lang.String">
+		<parameterDescription><![CDATA[手术名称]]></parameterDescription>
+	</parameter>
+	<parameter name="sqzd" class="java.lang.String">
+		<parameterDescription><![CDATA[诊断]]></parameterDescription>
+	</parameter>
+	<parameter name="ssys" class="java.lang.String">
+		<parameterDescription><![CDATA[手术医师]]></parameterDescription>
+	</parameter>
+	<parameter name="clyj" class="java.lang.String">
+		<parameterDescription><![CDATA[处理意见]]></parameterDescription>
+	</parameter>
+	<parameter name="ssbz" class="java.lang.String">
+		<parameterDescription><![CDATA[手术备注]]></parameterDescription>
+	</parameter>
+	<parameter name="mzmc" class="java.lang.String">
+		<parameterDescription><![CDATA[麻醉名称]]></parameterDescription>
+	</parameter>
+	<parameter name="yytpHtml" class="java.lang.String"/>
+	<parameter name="yytpStream" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="39" width="555" height="40" uuid="ba4f7413-f941-446d-9687-a5a6fe47623b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[门诊手术通知单]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="19" width="100" height="20" uuid="122b677a-0adc-416f-8f48-52ee038134d0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体"/>
+				</textElement>
+				<text><![CDATA[YW-BD-0170-003]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="39" width="555" height="1" uuid="9007e0c5-d28c-4ec2-b84e-e84bc1b34025"/>
+			</line>
+			<image isUsingCache="false" isLazy="true">
+				<reportElement x="0" y="4" width="210" height="35" uuid="8f7fcd53-c001-427c-a70e-f2957fc9258c"/>
+				<imageExpression><![CDATA[($P{yytpHtml}==null)?$P{yytpStream}:$P{yytpHtml}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="352" splitType="Stretch">
+			<staticText>
+				<reportElement x="45" y="22" width="380" height="330" uuid="d2fce2a9-ed19-48d6-b048-9b2f6d487889"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="30" width="40" height="20" uuid="259efa34-c6d6-4974-b75e-30665686069c"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[姓名：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="60" width="40" height="20" uuid="9dbf09ad-0fcf-42b0-81fe-7bbcd88a6e85"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[年龄：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="90" width="60" height="20" uuid="ab7bae31-7335-4a87-8b5b-dd9d43bf53b2"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[手术日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="120" width="60" height="20" uuid="0ced7588-0a3c-490b-b043-3f0042521d36"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[手术名称：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="150" width="60" height="20" uuid="f096f6a8-07d6-45f4-a5dc-794f680d1dd6"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[诊断：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="180" width="60" height="20" uuid="12d89e34-8cd4-4981-8da1-704a8db34325"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[手术医师：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="210" width="60" height="20" uuid="ac899a21-d1aa-4bf0-bdb0-32454f1b343f"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[处理意见：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="240" width="60" height="20" uuid="5f315d39-d6d8-4819-9abb-4685a24a98a9"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[备注：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="270" width="60" height="20" uuid="c4607f55-5c71-479e-b58c-9cf5bfc1c020"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[医师签名：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="300" width="60" height="20" uuid="e489606e-188c-45ca-887b-d8176cae5a3a"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[签名日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="30" width="60" height="20" uuid="3ee7233a-91d4-4a8d-bd72-7a21925bf5c5"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[出生日期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="60" width="60" height="20" uuid="8a22458a-ef1d-494f-b91d-9059086a582e"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[门诊号：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="90" width="40" height="20" uuid="37e435e8-6998-412b-b32a-b387b30ab47b"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[麻醉：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="30" width="40" height="20" uuid="9334be94-435c-449e-bdd9-bf53841e8bc2"/>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[性别：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="95" y="30" width="50" height="20" uuid="16f24a30-89f3-4230-8fbf-8f3616041a6d"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{brxm}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="210" y="30" width="100" height="20" uuid="122e53c3-a266-43be-9d81-3fbbf1c2cb07"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{csny}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="350" y="30" width="50" height="20" uuid="1de2a7c7-0ca0-4631-9d30-750e78f8a955"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{brxb}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="95" y="60" width="50" height="20" uuid="711e5c05-bb66-4e91-abc6-65b462c94be3"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{brnl}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="210" y="60" width="100" height="20" uuid="ad9e7908-45d0-47f4-a58f-dd49e398a272"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mzhm}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="115" y="90" width="145" height="20" uuid="dd8f5594-6631-4cea-962b-62e64fbf207e"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sssj}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="115" y="120" width="195" height="20" uuid="7f4c6a77-55c8-4053-ac48-73bfe7b1fdc2"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ssmc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="300" y="90" width="100" height="20" uuid="0119d539-65bd-428e-99cf-786d2327ef55"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mzmc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="115" y="150" width="195" height="20" uuid="c87ec04f-359a-4411-aa03-8e4985e48348"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sqzd}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="115" y="180" width="195" height="20" uuid="8e13b92f-7894-4731-996c-1e32acefd1b7"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ssys}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="115" y="210" width="195" height="20" uuid="293158e9-2f81-4a9c-add0-45c1e7f10ac2"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clyj}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="115" y="240" width="195" height="20" uuid="4081df52-2c68-47e9-b2b5-d517cb6c17dd"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ssbz}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="115" y="270" width="100" height="20" uuid="b87ba037-e609-4fa5-96bf-311514d8b3ed"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="300" width="100" height="20" uuid="e0f1ca4b-177f-4a81-b247-660645c8bfbf"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

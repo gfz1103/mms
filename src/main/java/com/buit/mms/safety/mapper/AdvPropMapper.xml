@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 危急值记录表 -->
+<mapper namespace="com.buit.mms.safety.dao.AdvPropDao">
+
+    <select id="queryApprovalConfig" resultType="com.buit.mms.safety.response.EventApprovalDepartmentResp">
+        select a.id,a.xzmc as sjmc,ifnull(b.shks,0) as shks
+        from adv_prop a
+        left join adv_shpz b on a.id=b.propid
+        where a.jgid=#{jgid}
+        order by a.id
+    </select>
+</mapper>
+

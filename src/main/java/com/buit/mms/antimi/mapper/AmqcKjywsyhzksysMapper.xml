@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 抗菌药物使用会诊科室医生表 -->
+<mapper namespace="com.buit.mms.antimi.dao.AmqcKjywsyhzksysDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        YLJGD as yljgd,SQDH as sqdh,XH as xh,YQHZKSDM as yqhzksdm,YQHZYSDM as yqhzysdm,HZYJ as hzyj,HZSJ as hzsj,HZYSDM as hzysdm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO AMQC_KJYWSYHZKSYS (
+            YLJGD ,
+            SQDH ,
+            XH ,
+            YQHZKSDM ,
+            YQHZYSDM ,
+            HZYJ ,
+            HZSJ ,
+            HZYSDM 
+        ) VALUES (
+            #{yljgd} ,
+            #{sqdh} ,
+            #{xh} ,
+            #{yqhzksdm} ,
+            #{yqhzysdm} ,
+            #{hzyj} ,
+            #{hzsj} ,
+            #{hzysdm} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE AMQC_KJYWSYHZKSYS SET
+            YLJGD = #{yljgd} ,
+            SQDH = #{sqdh} ,
+            YQHZKSDM = #{yqhzksdm} ,
+            YQHZYSDM = #{yqhzysdm} ,
+            HZYJ = #{hzyj} ,
+            HZSJ = #{hzsj} ,
+            HZYSDM = #{hzysdm} 
+        WHERE 
+            XH = #{xh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM AMQC_KJYWSYHZKSYS WHERE
+        XH = #{xh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM AMQC_KJYWSYHZKSYS <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="AmqcKjywsyhzksys">
+        SELECT <include refid="columns" />
+            FROM AMQC_KJYWSYHZKSYS 
+            WHERE 
+        XH = #{xh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+                <if test="@sqlt.Ognl@isNotEmpty(yljgd)"> 
+                     AND YLJGD = #{yljgd} 
+                </if> 
+                <if test="@sqlt.Ognl@isNotEmpty(sqdh)"> 
+                     AND SQDH = #{sqdh} 
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xh)"> -->
+<!--                     AND XH = #{xh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yqhzksdm)"> -->
+<!--                     AND YQHZKSDM = #{yqhzksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yqhzysdm)"> -->
+<!--                     AND YQHZYSDM = #{yqhzysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzyj)"> -->
+<!--                     AND HZYJ = #{hzyj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzsj)"> -->
+<!--                     AND HZSJ = #{hzsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzysdm)"> -->
+<!--                     AND HZYSDM = #{hzysdm} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM AMQC_KJYWSYHZKSYS 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="AmqcKjywsyhzksys">
+        SELECT <include refid="columns" />
+        FROM AMQC_KJYWSYHZKSYS 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <!-- 特殊级更新会诊意见 -->
+    <update id="updateHzyjInfo" >
+        UPDATE AMQC_KJYWSYHZKSYS SET
+            HZYJ = #{hzyj} ,
+            HZSJ = #{hzsj} ,
+            HZYSDM = #{hzysdm} 
+        WHERE 
+        	SQDH = #{sqdh} 
+            and YQHZYSDM = #{hzysdm}         
+    </update>
+</mapper>
+

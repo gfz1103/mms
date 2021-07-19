@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 特殊级抗菌药物会诊专家表 -->
+<mapper namespace="com.buit.mms.antimi.dao.AmqcTsjkjywhzzjDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,YLJGD as yljgd,YSDM as ysdm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO AMQC_TSJKJYWHZZJ (
+            JLXH ,
+            YLJGD ,
+            YSDM 
+        ) VALUES (
+            #{jlxh} ,
+            #{yljgd} ,
+            #{ysdm} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE AMQC_TSJKJYWHZZJ SET
+            YLJGD = #{yljgd} ,
+            YSDM = #{ysdm} 
+        WHERE 
+            JLXH = #{jlxh}         
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM AMQC_TSJKJYWHZZJ WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM AMQC_TSJKJYWHZZJ <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="AmqcTsjkjywhzzj">
+        SELECT <include refid="columns" />
+            FROM AMQC_TSJKJYWHZZJ 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yljgd)"> -->
+<!--                     AND YLJGD = #{yljgd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM AMQC_TSJKJYWHZZJ 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="AmqcTsjkjywhzzj">
+        SELECT <include refid="columns" />
+        FROM AMQC_TSJKJYWHZZJ 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+   	<!-- 专家信息查询 -->
+   	<select id="queryInfo" resultType="com.buit.mms.antimi.response.AmqcTsjkjywhzzjResp">
+   	    	select a.jlxh as jlxh,
+				a.ysdm as ysdm,
+	     		b.personname as personname, 
+	     		c.id as id, 
+	     		c.officename as officename,
+				b.medicalroles as medicalroles
+	        from amqc_tsjkjywhzzj a, hr_personnel b, dic_kszd c
+	        where  a.ysdm =  b.personid
+			and b.logoff = 0
+	        and  b.officecode  = c.id
+	        and b.organizcode = #{jgid}
+	        and c.organizcode = #{jgid}
+	        and a.yljgd = #{jgid}
+ 	</select>       
+</mapper>
+

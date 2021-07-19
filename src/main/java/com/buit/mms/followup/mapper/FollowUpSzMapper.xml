@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 随访管理设置表 -->
+<mapper namespace="com.buit.mms.followup.dao.FollowUpSzDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, JGID, PYDM, SZNR, NRLX, DTSQL, ZT, SFLX, KSTSDW, CYSFKSTS, JSTSDW, CYSFJSTS, CJSJ
+    </sql>
+
+
+    <sql id="where">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(id)">
+                AND id = #{id}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sznr)">
+                AND sznr = #{sznr}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(nrlx)">
+                AND nrlx = #{nrlx}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zt)">
+                AND zt = #{zt}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                AND jgid = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                AND PYDM like concat(concat('%',#{pydm}),'%')
+            </if>
+        </where>
+    </sql>
+    <insert id="insert">
+        INSERT INTO follow_up_sz (<include refid="Base_Column_List"/>)
+        values (#{id}, #{jgid}, #{pydm}, #{sznr}, #{nrlx}, #{dtsql}, #{zt}, #{sflx}, #{kstsdw}, #{cysfksts}, #{jstsdw}, #{cysfjsts}, #{cjsj})
+    </insert>
+
+    <select id="findByEntity" resultType="FollowUpSz">
+        SELECT <include refid="Base_Column_List" />
+        FROM follow_up_sz
+        <include refid="where"/>
+        ORDER BY cjsj DESC
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM follow_up_sz WHERE
+             id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE follow_up_sz
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="@sqlt.Ognl@isNotEmpty(zt)">
+                zt = #{zt},
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sznr)">
+                sznr = #{sznr} ,
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(dtsql)">
+                dtsql = #{dtsql} ,
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sflx)">
+                sflx = #{sflx} ,
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(cysfksts)">
+                cysfksts = #{cysfksts} ,
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(cysfjsts)">
+                cysfjsts = #{cysfjsts} ,
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(kstsdw)">
+                kstsdw = #{kstsdw} ,
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jstsdw)">
+                jstsdw = #{jstsdw} ,
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultType="FollowUpSz">
+        SELECT <include refid="Base_Column_List" />
+        FROM follow_up_sz
+        WHERE
+        id = #{id}
+    </select>
+</mapper>
+

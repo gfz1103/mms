@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 抗菌药物使用申请单 -->
+<mapper namespace="com.buit.mms.antimi.dao.AmqcKjywsysqDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        YLJGD as yljgd,SQDH as sqdh,ZYH as zyh,ZYHM as zyhm,MZHM as mzhm,KH as kh,XM as xm,XB as xb,CSRQ as csrq,NL as nl,NLDW as nldw,YYMD as yymd,GMS as gms,ZZ as zz,TZ as tz,TW as tw,WBC as wbc,BYXJC as byxjc,JG as jg,LHSY as lhsy,SYLY as syly,SQYSDM as sqysdm,SQSJ as sqsj,SHYJ as shyj,SHJG as shjg,SHRDM as shrdm,SHSJ as shsj,SFWTSJSYHZ as sfwtsjsyhz,ZJHZQK as zjhzqk,HZJG as hzjg,ZT as zt,KZRDM as kzrdm,XJGR as xjgr,HZ as hz,CRP as crp,PCT as pct,YNFY as ynfy,SFJC as sfjc,YMSY as ymsy,SFXF as sfxf,JJYY as jjyy,CJBB as cjbb,QT as qt
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO AMQC_KJYWSYSQ (
+            YLJGD ,
+            SQDH ,
+            ZYH ,
+            ZYHM ,
+            MZHM ,
+            KH ,
+            XM ,
+            XB ,
+            CSRQ ,
+            NL ,
+            NLDW ,
+            YYMD ,
+            GMS ,
+            ZZ ,
+            TZ ,
+            TW ,
+            WBC ,
+            BYXJC ,
+            JG ,
+            LHSY ,
+            SYLY ,
+            SQYSDM ,
+            SQSJ ,
+            SHYJ ,
+            SHJG ,
+            SHRDM ,
+            SHSJ ,
+            SFWTSJSYHZ ,
+            ZJHZQK ,
+            HZJG ,
+            ZT ,
+            KZRDM ,
+            XJGR ,
+            HZ ,
+            CRP ,
+            PCT ,
+            YNFY ,
+            SFJC ,
+            YMSY ,
+            SFXF ,
+            JJYY ,
+            CJBB ,
+            QT ,
+            MESSID
+        ) VALUES (
+            #{yljgd} ,
+            #{sqdh} ,
+            #{zyh} ,
+            #{zyhm} ,
+            #{mzhm} ,
+            #{kh} ,
+            #{xm} ,
+            #{xb} ,
+            #{csrq} ,
+            #{nl} ,
+            #{nldw} ,
+            #{yymd} ,
+            #{gms} ,
+            #{zz} ,
+            #{tz} ,
+            #{tw} ,
+            #{wbc} ,
+            #{byxjc} ,
+            #{jg} ,
+            #{lhsy} ,
+            #{syly} ,
+            #{sqysdm} ,
+            #{sqsj} ,
+            #{shyj} ,
+            #{shjg} ,
+            #{shrdm} ,
+            #{shsj} ,
+            #{sfwtsjsyhz} ,
+            #{zjhzqk} ,
+            #{hzjg} ,
+            #{zt} ,
+            #{kzrdm} ,
+            #{xjgr} ,
+            #{hz} ,
+            #{crp} ,
+            #{pct} ,
+            #{ynfy} ,
+            #{sfjc} ,
+            #{ymsy} ,
+            #{sfxf} ,
+            #{jjyy} ,
+            #{cjbb} ,
+            #{qt} ,
+            #{messid}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE AMQC_KJYWSYSQ SET
+            YLJGD = #{yljgd} ,
+            ZYH = #{zyh} ,
+            ZYHM = #{zyhm} ,
+            MZHM = #{mzhm} ,
+            KH = #{kh} ,
+            XM = #{xm} ,
+            XB = #{xb} ,
+            CSRQ = #{csrq} ,
+            NL = #{nl} ,
+            NLDW = #{nldw} ,
+            YYMD = #{yymd} ,
+            GMS = #{gms} ,
+            ZZ = #{zz} ,
+            TZ = #{tz} ,
+            TW = #{tw} ,
+            WBC = #{wbc} ,
+            BYXJC = #{byxjc} ,
+            JG = #{jg} ,
+            LHSY = #{lhsy} ,
+            SYLY = #{syly} ,
+            SQYSDM = #{sqysdm} ,
+            SQSJ = #{sqsj} ,
+            SHYJ = #{shyj} ,
+            SHJG = #{shjg} ,
+            SHRDM = #{shrdm} ,
+            SHSJ = #{shsj} ,
+            SFWTSJSYHZ = #{sfwtsjsyhz} ,
+            ZJHZQK = #{zjhzqk} ,
+            HZJG = #{hzjg} ,
+            ZT = #{zt} ,
+            KZRDM = #{kzrdm} ,
+            XJGR = #{xjgr} ,
+            HZ = #{hz} ,
+            CRP = #{crp} ,
+            PCT = #{pct} ,
+            YNFY = #{ynfy} ,
+            SFJC = #{sfjc} ,
+            YMSY = #{ymsy} ,
+            SFXF = #{sfxf} ,
+            JJYY = #{jjyy} ,
+            CJBB = #{cjbb} ,
+            QT = #{qt}
+        WHERE
+            SQDH = #{sqdh}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM AMQC_KJYWSYSQ WHERE
+        SQDH = #{sqdh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM AMQC_KJYWSYSQ <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="AmqcKjywsysq">
+        SELECT <include refid="columns" />
+            FROM AMQC_KJYWSYSQ
+            WHERE
+        SQDH = #{sqdh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yljgd)"> -->
+<!--                     AND YLJGD = #{yljgd} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(sqdh)">
+                     AND SQDH = #{sqdh}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zyh)"> -->
+<!--                     AND ZYH = #{zyh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zyhm)"> -->
+<!--                     AND ZYHM = #{zyhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzhm)"> -->
+<!--                     AND MZHM = #{mzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kh)"> -->
+<!--                     AND KH = #{kh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xm)"> -->
+<!--                     AND XM = #{xm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xb)"> -->
+<!--                     AND XB = #{xb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(csrq)"> -->
+<!--                     AND CSRQ = #{csrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nl)"> -->
+<!--                     AND NL = #{nl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nldw)"> -->
+<!--                     AND NLDW = #{nldw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yymd)"> -->
+<!--                     AND YYMD = #{yymd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gms)"> -->
+<!--                     AND GMS = #{gms} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zz)"> -->
+<!--                     AND ZZ = #{zz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tz)"> -->
+<!--                     AND TZ = #{tz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tw)"> -->
+<!--                     AND TW = #{tw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wbc)"> -->
+<!--                     AND WBC = #{wbc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(byxjc)"> -->
+<!--                     AND BYXJC = #{byxjc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jg)"> -->
+<!--                     AND JG = #{jg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lhsy)"> -->
+<!--                     AND LHSY = #{lhsy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(syly)"> -->
+<!--                     AND SYLY = #{syly} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqysdm)"> -->
+<!--                     AND SQYSDM = #{sqysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqsj)"> -->
+<!--                     AND SQSJ = #{sqsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(shyj)"> -->
+<!--                     AND SHYJ = #{shyj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(shjg)"> -->
+<!--                     AND SHJG = #{shjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(shrdm)"> -->
+<!--                     AND SHRDM = #{shrdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(shsj)"> -->
+<!--                     AND SHSJ = #{shsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfwtsjsyhz)"> -->
+<!--                     AND SFWTSJSYHZ = #{sfwtsjsyhz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjhzqk)"> -->
+<!--                     AND ZJHZQK = #{zjhzqk} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzjg)"> -->
+<!--                     AND HZJG = #{hzjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND ZT = #{zt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kzrdm)"> -->
+<!--                     AND KZRDM = #{kzrdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xjgr)"> -->
+<!--                     AND XJGR = #{xjgr} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hz)"> -->
+<!--                     AND HZ = #{hz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(crp)"> -->
+<!--                     AND CRP = #{crp} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pct)"> -->
+<!--                     AND PCT = #{pct} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ynfy)"> -->
+<!--                     AND YNFY = #{ynfy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfjc)"> -->
+<!--                     AND SFJC = #{sfjc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ymsy)"> -->
+<!--                     AND YMSY = #{ymsy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfxf)"> -->
+<!--                     AND SFXF = #{sfxf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jjyy)"> -->
+<!--                     AND JJYY = #{jjyy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cjbb)"> -->
+<!--                     AND CJBB = #{cjbb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qt)"> -->
+<!--                     AND QT = #{qt} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM AMQC_KJYWSYSQ
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="AmqcKjywsysq">
+        SELECT <include refid="columns" />
+        FROM AMQC_KJYWSYSQ
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+    <!-- 抗菌药物申请单查询  -->
+    <select id="queryAntibioticsInfo" resultType="com.buit.mms.antimi.response.AmqcKjywsysqResp">
+        select a.sqdh,
+        	a.zyh,
+        	a.sqsj,
+			'住院' as brlx,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			group_concat(d.ypmc) as ypmc,
+			a.shjg
+		from
+			amqc_kjywsysq a,
+			amqc_kjywsysqyp b,
+			im_hzry c,
+			drugs_typk d
+		where a.sqdh = b.sqdh
+			and a.zyh = c.zyh
+			and b.ypxh = d.ypxh
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+			 	and a.zt = #{zt}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sqysdm)">
+			 	and a.sqysdm = #{sqysdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brks)">
+			 	and c.brks = #{brks}
+			</if>
+		group by
+			a.sqdh,
+			a.sqsj,
+			a.zyh,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			a.shjg
+		union all
+		select a.sqdh,
+	        	null as zyh,
+	        	a.sqsj,
+				 '门诊' as brlx,
+				'' as zyhm,
+				a.mzhm,
+				e.brxm,
+				e.brxb,
+				concat(date_format(from_days(to_days(now())-to_days(e.csny)), '%Y')+0 ,'岁') as rynl,
+	 			null as brbq,
+				'' as brch,
+				d.mzks as brks,
+				a.yymd,
+				a.syly,
+				group_concat(f.ypmc) as ypmc,
+				a.shjg
+		from amqc_kjywsysq a,
+			amqc_kjywsysqyp b,
+			 op_ghmx c,
+			 op_ghks d,
+			 mpi_brda e,
+			drugs_typk f
+		where a.sqdh = b.sqdh
+			and a.mzhm = c.jzlsh
+			and b.ypxh = f.ypxh
+			and c.brid = e.brid
+			and c.ksdm = d.ksdm
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+			 	and a.zt = #{zt}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sqysdm)">
+			 	and a.sqysdm = #{sqysdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brks)">
+			 	and d.mzks = #{brks}
+			</if>
+		group by
+			a.sqdh,
+			a.sqsj,
+			a.mzhm,
+			e.brxm,
+			e.brxb,
+			e.csny,
+			d.mzks,
+			a.yymd,
+			a.syly,
+			a.shjg
+    </select>
+
+    <!-- 审核抗菌药物申请单 -->
+    <update id="updateAntibioticsExamine" >
+        UPDATE AMQC_KJYWSYSQ SET
+            SHYJ = #{shyj} ,
+            SHJG = #{shjg} ,
+            SHRDM = #{shrdm} ,
+            SHSJ = #{shsj} ,
+            ZT = #{zt}
+        WHERE
+            SQDH = #{sqdh}
+    </update>
+
+    <!-- 抗菌药物申请单查询  -->
+    <select id="queryHzAntibioticsInfo" resultType="com.buit.mms.antimi.response.AmqcKjywsysqResp">
+    	select a.sqdh,
+        	a.zyh,
+        	a.sqsj,
+			'住院' as brlx,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			group_concat(d.ypmc) as ypmc,
+			a.hzjg
+		from
+			amqc_kjywsysq a,
+			amqc_kjywsysqyp b,
+			im_hzry c,
+			drugs_typk d
+		where a.sqdh = b.sqdh
+			and a.zyh = c.zyh
+			and b.ypxh = d.ypxh
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+			 	and a.zt = #{zt}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sqysdm)">
+			 	and a.sqysdm = #{sqysdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brks)">
+			 	and c.brks = #{brks}
+			</if>
+		group by
+		 	a.sqdh,
+			a.sqsj,
+			a.zyh,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			a.hzjg
+    </select>
+
+	<!-- 查询抗菌药物申请单信息  -->
+    <select id="getSqdInfoBySqdh" resultType="com.buit.mms.antimi.response.AmqcKjywsysqypysResp">
+			 select a.sqdh,
+					a.zyh,
+					b.csny as csrq,
+					b.mqzd,
+					a.yymd,
+					a.gms,
+					a.zz,
+					a.tz,
+					a.tw,
+					a.wbc,
+					a.byxjc,
+					a.jg,
+					a.lhsy,
+					a.syly,
+					a.sqysdm,
+					a.sqsj,
+					a.shyj,
+					a.shjg,
+					a.shrdm,
+					a.shsj,
+					a.sfwtsjsyhz,
+					a.zjhzqk,
+					a.hzjg,
+					a.zt,
+					a.kzrdm,
+					a.xjgr,
+					a.hz,
+					a.crp,
+					a.pct,
+					a.ynfy,
+					a.sfjc,
+					a.ymsy,
+					a.sfxf,
+					a.jjyy,
+					a.cjbb,
+					a.qt
+				from
+					amqc_kjywsysq a,
+					im_hzry b
+				where a.zyh = b.zyh
+			   AND a.ZYH IS NOT NULL
+				   and a.sqdh = #{sqdh}
+				   and a.yljgd = #{jgid}
+			 union all
+			 select a.sqdh,
+					a.zyh,
+					a.CSRQ as csrq,
+					b.ZDMC AS mqzd,
+					a.yymd,
+					a.gms,
+					a.zz,
+					a.tz,
+					a.tw,
+					a.wbc,
+					a.byxjc,
+					a.jg,
+					a.lhsy,
+					a.syly,
+					a.sqysdm,
+					a.sqsj,
+					a.shyj,
+					a.shjg,
+					a.shrdm,
+					a.shsj,
+					a.sfwtsjsyhz,
+					a.zjhzqk,
+					a.hzjg,
+					a.zt,
+					a.kzrdm,
+					a.xjgr,
+					a.hz,
+					a.crp,
+					a.pct,
+					a.ynfy,
+					a.sfjc,
+					a.ymsy,
+					a.sfxf,
+					a.jjyy,
+					a.cjbb,
+					a.qt
+				from
+					amqc_kjywsysq a,
+			  (SELECT JGID,JZLSH,GROUP_CONCAT(ZDMC) AS ZDMC FROM op_brzd GROUP BY JGID,JZLSH) b
+				where a.MZHM IS NOT NULL
+			   AND a.MZHM = b.JZLSH
+				   and a.sqdh = #{sqdh}
+				   and a.yljgd = #{jgid}
+    </select>
+
+
+    <!-- 抗菌药物使用统计 -->
+    <select id="antibioticsStatistics" resultType="com.buit.mms.antimi.response.AmqcKjywsysqStatisticsResp">
+      select b.brks,
+			b.czgh,
+			a.zyhm,
+			c.brxm,
+			d.ypmc,
+			b.yfgg,
+			b.ypcd,
+			d.kssdj,
+			b.ypyf,
+			b.sypc,
+			b.ycsl,
+			b.yfdw,
+			b.kssj,
+			b.tzsj,
+			a.yymd,
+			a.byxjc
+		from
+			amqc_kjywsysq a,
+			cis_hzyz b
+			left join drugs_typk d on b.ypxh = d.ypxh,
+			im_hzry c
+		where
+			a.zyh = b.zyh
+			and a.zyh = c.zyh
+			and a.sqdh = b.sqid
+			and b.yzlx is null
+			and a.sfwtsjsyhz = #{yjlx}
+		 	and a.yljgd = #{jgid}
+		 	<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+            	and date_format(b.kssj,'%Y-%m-%d') &gt;= #{beginDate}
+        	</if>
+        	<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+            	and date_format(b.kssj,'%Y-%m-%d') &lt;= #{endDate}
+        	</if>
+    </select>
+
+	<select id="antibioticsStatisticsforMz" resultType="com.buit.mms.antimi.response.AmqcKjywsysqStatisticsResp">
+		SELECT
+		cf01.KSDM AS brks,
+		cf01.YSDM AS czgh,
+		cf01.jzlsh AS zyhm,
+		cf01.BRXM AS brxm,
+		opkjywsq.ypmc AS ypmc,
+		cf02.YFGG AS yfgg,
+		cf02.YPCD AS ypcd,
+		typk.KSSDJ AS kssdj,
+		cf02.GYTJ AS ypyf,
+		cf02.YPYF AS sypc,
+		cf02.YCJL AS ycsl,
+		cf02.YFDW AS yfdw,
+		cf01.KFRQ AS kssj,
+		DATE_FORMAT(DATE_ADD(cf01.KFRQ,INTERVAL opkjywsq.ts DAY),'%Y-%m-%d') AS tzsj,
+		sq.yymd AS yymd,
+		sq.byxjc AS byxjc
+		FROM op_cf_kjywsqjl opkjywsq
+		LEFT JOIN op_cf02 cf02 ON opkjywsq.ypxh = cf02.YPXH
+		LEFT JOIN op_cf01 cf01 ON cf02.CFSB = cf01.CFSB
+		LEFT JOIN amqc_kjywsysq sq ON opkjywsq.sqdh = sq.SQDH
+		left join drugs_typk typk on opkjywsq.ypxh = typk.YPXH
+		WHERE 1=1 AND cf01.FPHM IS NOT NULL AND cf01.ZFPB = 0
+		AND cf01.JGID = #{jgid}
+		<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+			and date_format(cf01.KFRQ,'%Y-%m-%d') &gt;= #{beginDate}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+			and date_format(cf01.KFRQ,'%Y-%m-%d') &lt;= #{endDate}
+		</if>
+	</select>
+
+    <!-- 按科室统计抗菌药物使用强度 -->
+    <select id="antibioticsUseIntensityByKs" resultType="com.buit.mms.antimi.response.AmqcKjywsysqUseIntensityResp">
+      select a.brks, a.cyrs, round(a.pjzyts, 1) as pjzyts,
+       ifnull(round(sum(f .ypsl / d.zxbz * d.yfbz) / d.dddz, 2),0) as ddds,
+       ifnull(sum(round(ifnull(e.yfbz, d.zxbz) * d.ypjl * c.fysl / d.dddz * 100 / a.pjzyts,2)),0) as syqd
+	    from (
+			select brks, count(1) as cyrs, sum(datediff(cyrq,ryrq))/count(1) as pjzyts from im_hzry
+				where cypb not in (0, 1)
+				and jgid = #{jgid}
+				<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+            		and date_format(cyrq,'%Y-%m-%d') &gt;= #{beginDate}
+	        	</if>
+	        	<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+	            	and date_format(cyrq,'%Y-%m-%d') &lt;= #{endDate}
+	        	</if>
+				group by brks ) a
+		left join im_hzry b on a.brks = b.brks
+		left join (select * from im_fee_fymx where yplx &lt;&gt; 0) c on b.zyh = c.zyh
+		left join drugs_typk d on c.fyxh = d.ypxh and d.ksbz = 1
+		left join cis_hzyz e on c.yzxh = e.jlxh
+		left join phar_zyfymx f on d.ypxh = f.ypxh and c.yzxh = f.yzxh
+		where b.cypb not in (0, 1)
+			and b.jgid = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+           		and date_format(cyrq,'%Y-%m-%d') &gt;= #{beginDate}
+        	</if>
+        	<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+            	and date_format(cyrq,'%Y-%m-%d') &lt;= #{endDate}
+        	</if>
+		group by a.brks,d.dddz
+		order by ifnull(sum(round(ifnull(e.yfbz, d.zxbz) * d.ypjl * c.fysl / d.dddz * 100 /
+                 a.pjzyts,
+                 2)),0) desc
+    </select>
+
+    <!-- 按药物类别抗菌药物使用强度 -->
+    <select id="antibioticsUseIntensityByLb" resultType="com.buit.mms.antimi.response.AmqcKjywsysqUseIntensityResp">
+      select d.ypdm, ifnull(round(sum(c .ypsl / d.zxbz * d.yfbz) / d.dddz, 2),0) as ddds
+      	from im_hzry a , cis_hzyz b
+			left join phar_zyfymx c on b.jlxh = c.yzxh
+			left join drugs_typk d on c.ypxh = d.ypxh and d.ksbz = 1
+			where a.zyh = b.zyh
+			and a.cypb not in (0, 1)
+			and a.jgid = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+           		and date_format(a.cyrq,'%Y-%m-%d') &gt;= #{beginDate}
+        	</if>
+        	<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+            	and date_format(a.cyrq,'%Y-%m-%d') &lt;= #{endDate}
+        	</if>
+			group by d.ypdm, d.dddz
+    </select>
+
+    <!-- 住院抗菌药物使用率统计 -->
+    <select id="antibioticsUtilizationRate" resultType="com.buit.mms.antimi.response.AmqcKjywsysqUtilizationRateResp">
+		select d.brks,
+			c.cyrs,
+			round(c.pjzyts, 1) as pjzyts,
+			ifnull(m.sykjrs, 0) as sykjrs,
+			concat(ifnull(round(m.sykjrs /c.cyrs * 100, 2), 0),'%') as kjysyl,
+			ifnull(m.kjypzs, 0) as kjypzs,
+			ifnull(m.kjypjpzs, 0) as kjypjpzs,
+       		round(sum(a.zjje), 2) as zfy,
+ 			round(sum(case a.yplx when 0 then 0 else a.zjje end), 2) as ypzfy,
+       		round(sum(case b.ksbz when 1 then a.zjje else 0 end), 2) as kjywzfy,
+       		round(sum(case b.ksbz when 1 then a.zjje else 0 end / c.cyrs), 2) as kjywrjfy,
+       		concat(round(sum(case b.ksbz when 1 then a.zjje else 0 end) / sum(a.zjje) * 100, 2),'%') as zfyzb,
+       		concat(round(ifnull((sum(case b.ksbz when 1 then a.zjje else 0 end) /
+       		sum(case a.yplx when 0 then 0 else a.zjje end) * 100), 0), 2),'%') as ywzfyzb
+  		from im_fee_fymx  a
+  		left join drugs_typk b on a.fyxh = b.ypxh and a.yplx &lt;&gt; 0
+  		left join im_hzry d on a.zyh = d.zyh
+  		left join (select brks,
+                      count(1) as cyrs,
+                       sum(datediff(cyrq,ryrq)) / count(1) as pjzyts
+                 		from im_hzry
+                		where cypb not in (0, 1)
+                		<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+           					and date_format(cyrq,'%Y-%m-%d') &gt;= #{beginDate}
+			        	</if>
+			        	<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+			            	and date_format(cyrq,'%Y-%m-%d') &lt;= #{endDate}
+			        	</if>
+                	group by brks) c on c.brks = d.brks
+  		left join cis_hzyz f on a.yzxh = f.jlxh
+		left join (select c.brks, count(distinct a.zyh) as sykjrs,
+			count(distinct b.ypxh) as kjypzs ,
+			count(distinct a.zyh,b.ypxh) / count(distinct a.zyh) as kjypjpzs
+			from im_fee_fymx  a, drugs_typk b ,im_hzry c
+			where b.ksbz = 1
+		and a.zyh = c.zyh
+		and  a.fyxh = b.ypxh and a.yplx &lt;&lt; 0
+		and c.cypb not in (0,1)
+		<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+     		and date_format(c.cyrq,'%Y-%m-%d') &gt;= #{beginDate}
+       	</if>
+       	<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+           	and date_format(c.cyrq,'%Y-%m-%d') &lt;= #{endDate}
+       	</if>
+		group by c.brks) m on d.brks = m.brks
+	 where a.jgid = #{jgid}
+		   and d.cypb not in (0, 1)
+		   <if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+           		and date_format(d.cyrq,'%Y-%m-%d') &gt;= #{beginDate}
+           </if>
+           <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+            	and date_format(d.cyrq,'%Y-%m-%d') &lt;= #{endDate}
+           </if>
+		 group by d.brks
+    </select>
+
+	<select id="antibioticsUtilizationRateForMz" resultType="com.buit.mms.antimi.response.AmqcKjywsysqUtilizationRateResp">
+		SELECT
+		cf01.KSDM AS brks,
+		COUNT(DISTINCT cf01.BRID) AS cyrs,
+		COUNT(DISTINCT cf01.CFSB) AS cfsl,
+		COUNT(DISTINCT CASE WHEN typk.KSBZ = 1 THEN cf01.CFSB END) AS kjywcfs,
+		concat(ifnull(round(COUNT(DISTINCT CASE WHEN typk.KSBZ = 1 THEN cf01.CFSB END)/COUNT(DISTINCT cf01.CFSB)* 100,2),0),'%') AS kjywcfzb,
+		COUNT(DISTINCT CASE WHEN typk.KSBZ = 1 THEN cf01.BRID END) AS sykjrs,
+		concat(round(SUM(if(typk.KSBZ=1,cf02.HJJE,0))/ifnull(SUM(cf02.HJJE)* 100,0),2),'%') AS ywzfyzb,
+		concat(round(SUM(if(typk.KSBZ=1,cf02.HJJE,0))/
+		(ifnull(SUM(cf02.HJJE),0)
+		+ifnull((SELECT DISTINCT SUM(yjcf02.hjje) FROM op_yjcf01 yjcf01
+		LEFT JOIN op_yjcf02 yjcf02 ON yjcf01.yjxh = yjcf02.yjxh  WHERE yjcf01.ksdm = cf01.ksdm GROUP BY yjcf01.ksdm),0))* 100,2),'%') AS zfyzb,
+		round(ifnull(SUM(if(typk.KSBZ=1,cf02.HJJE,0))/COUNT(DISTINCT CASE WHEN typk.KSBZ = 1 THEN cf01.BRID END),0),2) AS kjywrjfy,
+		ifnull(SUM(if(typk.KSBZ=1,cf02.HJJE,0)),0) AS kjywzfy,
+		ifnull(SUM(cf02.HJJE),0) AS ypzfy,
+		ifnull(SUM(cf02.HJJE),0)
+		+ifnull((SELECT DISTINCT SUM(yjcf02.hjje) FROM op_yjcf01 yjcf01
+		LEFT JOIN op_yjcf02 yjcf02 ON yjcf01.yjxh = yjcf02.yjxh  WHERE yjcf01.ksdm = cf01.ksdm GROUP BY yjcf01.ksdm),0) AS zfy,
+		COUNT(DISTINCT CASE WHEN typk.KSSDJ =1 THEN cf01.cfsb END) AS fxzjcfs,
+		concat(round(COUNT(DISTINCT CASE WHEN typk.KSSDJ =1 THEN cf01.cfsb END)/COUNT(DISTINCT cf01.CFSB)*100,0),'%') AS fxzjcfzb,
+		COUNT(DISTINCT CASE WHEN typk.KSSDJ =2 THEN cf01.cfsb END) AS xzjcfs,
+		concat(round(COUNT(DISTINCT CASE WHEN typk.KSSDJ =2 THEN cf01.cfsb END)/COUNT(DISTINCT cf01.CFSB)*100,0),'%') AS xzjcfzb,
+		COUNT(DISTINCT CASE WHEN typk.KSSDJ =3 THEN cf01.cfsb END) AS tsjcfs,
+		concat(round(COUNT(DISTINCT CASE WHEN typk.KSSDJ =3 THEN cf01.cfsb END)/COUNT(DISTINCT cf01.CFSB)*100,0),'%') AS tsjcfzb,
+		concat(ifnull(COUNT(DISTINCT CASE WHEN typk.KSBZ = 1 THEN cf02.sbxh END)/COUNT(cf02.sbxh)* 100,0),'%') AS kjywsyl
+		FROM op_cf01 cf01
+		LEFT JOIN op_cf02 cf02 ON cf01.CFSB = cf02.CFSB
+		LEFT JOIN drugs_typk typk ON cf02.YPXH = typk.YPXH
+		WHERE 1=1 AND cf01.fphm IS NOT NULL AND cf01.zfpb != 0 and  cf01.jgid = #{jgid}
+		<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+			and date_format(cf01.KFRQ,'%Y-%m-%d') >= #{beginDate}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+			and date_format(cf01.KFRQ,'%Y-%m-%d') &lt;= #{endDate}
+		</if>
+		GROUP BY cf01.KSDM
+	</select>
+
+    <!-- 住院抗菌药物使用排名 -->
+    <select id="antibioticsUseRanking" resultType="com.buit.mms.antimi.response.AmqcKjywsysqUseRankingResp">
+		select b.ypmc,
+			c.yfgg,
+			b.ypxh,
+			a.ypcd,
+			c.brks,
+			ifnull(sum(a.fysl),0) as syl,
+			c.yfdw,
+			ifnull(sum(a.zjje),0) as zjje
+			from im_fee_fymx a, drugs_typk b, cis_hzyz c
+			where a.fyxh = b.ypxh
+			and b.ksbz = 1
+			and a.zyh = c.zyh
+			and a.yzxh = c.jlxh
+			and a.yplx &lt;&gt; 0
+			and a.jgid = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+           		and date_format(a.fyrq,'%Y-%m-%d') &gt;= #{beginDate}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+            	and date_format(a.fyrq,'%Y-%m-%d') &lt;= #{endDate}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ypmc)">
+            	and concat(b.ypxh,'-',c.ypcd,'-',c.yfgg) = #{ypmc}
+            </if>
+		group by b.ypmc, c.yfgg,  b.ypxh, a.ypcd, c.brks, c.yfdw
+		order by c.brks, sum(a.fysl) desc
+    </select>
+
+	<!-- 门诊抗菌药物使用排名 -->
+	<select id="antibioticsUseRankingForMz" resultType="com.buit.mms.antimi.response.AmqcKjywsysqUseRankingResp">
+       SELECT
+		   typk.YPMC AS ypmc,
+		   cf02.YFGG AS yfgg,
+		   cf02.YPXH AS ypxh,
+		   cf02.YPCD AS ypcd,
+		   cf01.KSDM AS brks,
+		   ifnull(sum(cf02.YPSL),0) as syl,
+		   cf02.YFDW AS yfdw,
+		   ifnull(sum(cf02.HJJE),0) as zjje
+		FROM op_cf02 cf02
+		LEFT JOIN op_cf01 cf01 ON cf02.CFSB = cf01.CFSB
+		LEFT JOIN drugs_typk typk ON cf02.YPXH = typk.YPXH
+		WHERE typk.KSBZ = 1 AND cf01.FPHM IS NOT NULL AND cf01.ZFPB != 0
+		and cf01.jgid = #{jgid}
+		<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+			and date_format(cf01.KFRQ,'%Y-%m-%d') &gt;= #{beginDate}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(endDate)">
+			and date_format(cf01.KFRQ,'%Y-%m-%d') &lt;= #{endDate}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ypmc)">
+			and concat(cf02.ypxh,'-',cf02.ypcd,'-',cf02.yfgg) = #{ypmc}
+		</if>
+		GROUP BY typk.ypmc, cf02.yfgg,  cf02.ypxh, cf02.ypcd, cf01.KSDM, cf02.yfdw
+		ORDER BY cf01.KSDM, sum(cf02.YPSL) desc
+	</select>
+
+    <!-- 审核特殊级抗菌药物申请单 -->
+    <update id="updateSpecialExamine" >
+        UPDATE AMQC_KJYWSYSQ SET
+            HZJG = #{hzjg} ,
+            SHRDM = #{shrdm} ,
+            ZT = #{zt}
+        WHERE
+            SQDH = #{sqdh}
+    </update>
+
+
+    <!-- 住院医生抗菌药物申请单审核查询  -->
+    <select id="queryVerifyAntibioticsInfo" resultType="com.buit.mms.antimi.response.AmqcKjywsysqResp">
+        select a.sqdh,
+        	a.zyh,
+        	a.sqsj,
+			'住院' as brlx,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			group_concat(d.ypmc) as ypmc,
+			a.shjg
+		from
+			amqc_kjywsysq a,
+			amqc_kjywsysqyp b,
+			im_hzry c,
+			drugs_typk d
+		where a.sqdh = b.sqdh
+			and a.zyh = c.zyh
+			and b.ypxh = d.ypxh
+			and d.kssdj &lt; 3
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+			 	and a.zt = #{zt}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sqysdm)">
+			 	and a.sqysdm = #{sqysdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brks)">
+			 	and c.brks = #{brks}
+			</if>
+		group by
+			a.sqdh,
+			a.sqsj,
+			a.zyh,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			a.shjg
+	</select>
+
+	<!-- 住院医生特殊抗菌药物申请单审核查询  -->
+    <select id="queryHzVerifyAntibioticsInfo" resultType="com.buit.mms.antimi.response.AmqcKjywsysqResp">
+        select a.sqdh,
+        	a.zyh,
+        	a.sqsj,
+			'住院' as brlx,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			group_concat(d.ypmc) as ypmc,
+			a.hzjg
+		from
+			amqc_kjywsysq a,
+			amqc_kjywsysqyp b,
+			im_hzry c,
+			drugs_typk d,
+			amqc_kjywsyhzksys e
+		where a.sqdh = b.sqdh
+			and a.zyh = c.zyh
+			and b.ypxh = d.ypxh
+			and d.kssdj = 3
+			and a.sqdh = e.sqdh
+			and e.yqhzysdm = #{yqhzysdm}
+			and e.yqhzksdm = #{yqhzksdm}
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+			 	and a.zt = #{zt}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sqysdm)">
+			 	and a.sqysdm = #{sqysdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brks)">
+			 	and c.brks = #{brks}
+			</if>
+		group by
+			a.sqdh,
+			a.sqsj,
+			a.zyh,
+			c.zyhm,
+			a.mzhm,
+			c.brxm,
+			c.brxb,
+			c.rynl,
+			c.brbq,
+			c.brch,
+			c.brks,
+			a.yymd,
+			a.syly,
+			a.hzjg
+	</select>
+
+	<!-- 特殊抗菌药物申请单打印  -->
+    <select id="querySpecialAntibioticsPrint" resultType="java.util.HashMap">
+        select (select officename from dic_kszd where b.brbq = id) as BQMC,
+			b.BRCH,
+			(select officename from dic_kszd where b.brks = id) as KSMC,
+			year(a.sqsj) as SQYEAR,
+			month(a.sqsj) as SQMONTH,
+			day(a.sqsj) as SQDAY,
+			b.BRXM,
+			b.CSNY,
+			b.RYNL,
+			case b.brxb when 1 then '男'
+				when 2 then '女'
+				else '' end as BRXB,
+			a.ZYHM,
+			b.MQZD,
+			group_concat(d.ypmc) as YPMC,
+			group_concat(c.ypgg) as YPGG,
+			group_concat((select xmmc from im_dic_ypyf where c.ypyf = ypyf)) as YPYF,
+			sum(c.ycsl * c.sysj) as YPSL,
+			a.ZZ,
+			a.SYLY,
+			a.XJGR,
+			a.TW,
+			a.HZ,
+			a.WBC,
+			a.CRP,
+			a.PCT,
+			a.YNFY,
+			a.BYXJC,
+			a.SFJC,
+			a.YMSY,
+			a.SFXF,
+			a.JJYY,
+			a.CJBB,
+			A.QT,
+			concat((select personname from hr_personnel where personid = a.sqysdm), '(',
+			(select js.jsmc from hr_personnel hr, dic_yljs js where hr.personid = a.sqysdm
+			 and hr.medicalroles = js.jsxh), ')') as SQYSMC,
+		  	(select personname from hr_personnel where personid = a.kzrdm) as KZRMC,
+	  		group_concat(e.hzyj) as HZYJ,
+			group_concat((select personname from hr_personnel where personid = e.hzysdm)) as ZJQM,
+			year(e.hzsj) as HZYEAR,
+			month(e.hzsj) as HZMONTH,
+			day(e.hzsj) as HZDAY,
+			hour(e.hzsj) as HZHOUR,
+			minute(e.hzsj) as HZMIN
+		from  amqc_kjywsysq a left join amqc_kjywsyhzksys e on a.sqdh = e.sqdh and e.hzsj is not null,
+			im_hzry b,
+			amqc_kjywsysqyp c, drugs_typk d
+		where a.zyh = b.zyh
+		and a.sqdh = c.sqdh
+		and c.ypxh = d.ypxh
+		and a.sfwtsjsyhz = 1
+		and a.sqdh = #{sqdh}
+		and a.yljgd = #{jgid}
+			group by
+			b.brbq,
+			b.brch,
+			b.brks,
+			a.sqsj,
+			b.brxm,
+			b.CSNY,
+			b.RYNL,
+			b.brxb,
+			a.zyhm,
+			b.MQZD,
+			a.ZZ,
+			a.syly,
+			a.xjgr,
+			a.tw,
+			a.hz,
+			a.wbc,
+			a.crp,
+			a.pct,
+			a.ynfy,
+			a.byxjc,
+			a.sfjc,
+			a.ymsy,
+			a.sfxf,
+			a.jjyy,
+			a.cjbb,
+			a.qt,
+			a.sqysdm,
+			a.kzrdm,
+			e.hzysdm,
+			e.hzsj
+	</select>
+	
+	<!-- 更新抗菌药物消息返回id -->
+    <update id="updateAmqcMessIdBySqdh" >
+        update amqc_kjywsysq set messid = #{messid} where sqdh = #{sqdh}
+    </update>
+</mapper>
+

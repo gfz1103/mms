@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 公用_医疗收费 -->
+<mapper namespace="com.buit.mms.cmo.dao.FeeYlsfxmDao">
+
+    <select id="ssxmSelector" resultType="com.buit.mms.cmo.response.OperationSelectorResp">
+        select a.fyxh,a.fymc,a.fydj,a.pydm,a.fydw,a.fygb,a.fyxh as ssnm,ifnull(c.ssdj,4) as ssdj
+        from fee_ylsfxm a
+        left join cmo_ssxmgx b on a.fyxh=b.fyxh
+        left join dic_ssbm c on b.ssxh=c.id
+        where a.pydm like concat('%',#{pydm},'%') and a.zfpb=0
+    </select>
+
+</mapper>
+

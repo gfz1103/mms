@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 危急值记录表 -->
+<mapper namespace="com.buit.mms.cmo.dao.CmoZdssDao">
+
+    <sql id="column">
+        ssbm,ssmc,icd,ssdj,pydm
+    </sql>
+
+    <insert id="insertSelectByDicJbbm">
+        insert into cmo_zdss(ssbm,ssmc,icd,ssdj)
+        select id,ssmc,icd_code,ssdj
+        from dic_ssbm where id in (<foreach collection="list" separator="," item="b">#{b}</foreach>)
+    </insert>
+
+    <delete id="remove">
+        delete from cmo_zdss where ssbm in(<foreach collection="list" separator="," item="b">#{b}</foreach>)
+    </delete>
+
+    <select id="queryList" resultType="com.buit.mms.cmo.response.CmoZdssResp">
+        select <include refid="column" />
+        from cmo_zdss
+        <where>
+            <if test="pydm!=null and pydm!=''">
+                pydm like concat('%',#{pydm},'%') or ssmc like concat('%',#{pydm},'%')
+            </if>
+        </where>
+    </select>
+    <select id="queryUncheckedList" resultType="com.buit.mms.cmo.response.CmoZdssResp" >
+        select id as ssbm,ssmc as ssmc,icd_code as icd,ssdj
+        from dic_ssbm
+        where id not in (select ssbm from cmo_zdss) and zfbz=0
+        <if test="pydm!=null and pydm!=''">
+            and (pydm like concat('%',#{pydm},'%') or ssmc like concat('%',#{pydm},'%'))
+        </if>
+    </select>
+    <select id="getById" resultType="com.buit.mms.cmo.model.CmoZdss">
+        select <include refid="column" />
+        from cmo_zdss
+        where ssbm=#{ssbm}
+    </select>
+    <select id="getByfyxhId" resultType="com.buit.mms.cmo.model.CmoZdss">
+        select a.*
+        from cmo_zdss a
+        inner join cmo_ssxmgx b on a.ssbm=b.ssxh
+        where b.fyxh=#{fyxh}
+    </select>
+</mapper>
+

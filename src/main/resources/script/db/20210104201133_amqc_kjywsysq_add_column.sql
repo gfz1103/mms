@@ -1,0 +1,11 @@
+ALTER TABLE `amqc_kjywsysq` 
+ADD COLUMN `XJGR` varchar(50) NULL COMMENT '细菌感染的临床诊断' AFTER `KZRDM`,
+ADD COLUMN `HZ` int(0) NULL COMMENT '寒战(1:无,2:有)' AFTER `XJGR`,
+ADD COLUMN `CRP` decimal(10, 2) NULL COMMENT 'CRP' AFTER `HZ`,
+ADD COLUMN `PCT` decimal(10, 2) NULL COMMENT 'PCT' AFTER `CRP`,
+ADD COLUMN `YNFY` int(0) NULL COMMENT '院内获得性肺炎(1:是,0:否)' AFTER `PCT`,
+ADD COLUMN `SFJC` int(0) NULL COMMENT '病原学检测是否检出菌(1:未检出菌,2:检出菌)' AFTER `YNFY`,
+ADD COLUMN `YMSY` int(0) NULL COMMENT '药敏试验(1:未做,0:已做)' AFTER `SFJC`,
+ADD COLUMN `SFXF` int(0) NULL COMMENT '药敏试验是否相符(1:不相符,2:相符)' AFTER `YMSY`,
+ADD COLUMN `JJYY` int(0) NULL COMMENT '危重患者紧急情况下经验性用药(1:无,2:有)' AFTER `SFXF`,
+ADD COLUMN `CJBB` int(0) NULL COMMENT '用药前采集标本(1:是,0:否)' AFTER `JJYY`;

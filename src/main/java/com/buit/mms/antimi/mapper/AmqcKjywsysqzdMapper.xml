@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 抗菌药物使用申请诊断表 -->
+<mapper namespace="com.buit.mms.antimi.dao.AmqcKjywsysqzdDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        YLJGD as yljgd,SQDH as sqdh,XH as xh,ZDICD as zdicd,ZDMC as zdmc
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO AMQC_KJYWSYSQZD (
+            YLJGD ,
+            SQDH ,
+            XH ,
+            ZDICD ,
+            ZDMC 
+        ) VALUES (
+            #{yljgd} ,
+            #{sqdh} ,
+            #{xh} ,
+            #{zdicd} ,
+            #{zdmc} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE AMQC_KJYWSYSQZD SET
+            YLJGD = #{yljgd} ,
+            SQDH = #{sqdh} ,
+            ZDICD = #{zdicd} ,
+            ZDMC = #{zdmc} 
+        WHERE 
+            XH = #{xh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM AMQC_KJYWSYSQZD WHERE
+        XH = #{xh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM AMQC_KJYWSYSQZD <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="AmqcKjywsysqzd">
+        SELECT <include refid="columns" />
+            FROM AMQC_KJYWSYSQZD 
+            WHERE 
+        XH = #{xh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yljgd)"> -->
+<!--                     AND YLJGD = #{yljgd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqdh)"> -->
+<!--                     AND SQDH = #{sqdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xh)"> -->
+<!--                     AND XH = #{xh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdicd)"> -->
+<!--                     AND ZDICD = #{zdicd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdmc)"> -->
+<!--                     AND ZDMC = #{zdmc} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM AMQC_KJYWSYSQZD 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="AmqcKjywsysqzd">
+        SELECT <include refid="columns" />
+        FROM AMQC_KJYWSYSQZD 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 危急值记录表 -->
+<mapper namespace="com.buit.mms.cmo.dao.CmoSsxgDao">
+
+    <sql id="column">
+        id,name,pydm,wbdm,`status`,relevant
+    </sql>
+
+    <select id="queryAll" resultType="com.buit.mms.cmo.model.CmoSsxg">
+        select <include refid="column"/>
+        from cmo_tsss
+        where relevant=#{relevant}
+        order by id
+    </select>
+    <update id="replace">
+        replace into cmo_tsss(id,name,pydm,wbdm,`status`,relevant) values(#{id},#{name},#{pydm},#{wbdm},#{status},#{relevant})
+    </update>
+    <delete id="deleteById">
+        delete from cmo_tsss where id=#{id}
+    </delete>
+    <update id="updateStatusById">
+        update cmo_tsss set `status`=1-`status` where id=#{id}
+    </update>
+</mapper>
+

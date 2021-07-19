@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 随访记录表 -->
+<mapper namespace="com.buit.mms.followup.dao.FollowUpRecordDao">
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, JGID, ZYH, SFZT, HFSJ, HFR, SFFS, ZTQK, YJHJY, CLQK, SFYY, CJSJ
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO follow_up_record (<include refid="Base_Column_List"/>)
+        values (#{id} ,#{jgid}, #{zyh}, #{sfzt}, #{hfsj}, #{hfr}, #{sffs}, #{ztqk}, #{yjhjy}, #{clqk}, #{sfyy}, #{cjsj})
+    </insert>
+
+    <select id="findByEntity" resultType="FollowUpSz">
+        SELECT <include refid="Base_Column_List" />
+        FROM follow_up_record
+        <include refid="where"/>
+        ORDER BY hfsj DESC
+    </select>
+
+    <select id="findFollowUpRecord" resultType="com.buit.mms.followup.response.FollowUpRecordResp">
+        SELECT <include refid="from_table"/><include refid="records"/>
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(sffs)">
+                And sffs = #{sffs}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sfyy)">
+                And sfyy = #{sfyy}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                And jgid = #{jgid}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="records">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(followUpRecordReq.ksid)">
+                And ih.brks = #{followUpRecordReq.ksid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sql)">
+                ${sql}
+            </if>
+
+            <if test="@sqlt.Ognl@isNotEmpty(followUpRecordReq.kssj)">
+                <choose>
+                    <when test="followUpRecordReq.cxlx == 0">
+                        And ih.cyrq >= #{followUpRecordReq.kssj}
+                    </when>
+                    <otherwise>
+                        And fur.hfsj >= #{followUpRecordReq.kssj}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(followUpRecordReq.jssj)">
+                <choose>
+                   <when test="followUpRecordReq.cxlx == 0">
+                       And #{followUpRecordReq.jssj} >= ih.cyrq
+                   </when>
+                    <otherwise>
+                        And #{followUpRecordReq.jssj} >= fur.hfsj
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="followUpRecordReq.cxlx == 0">
+                And ih.cypb >= 8 And ih.zyh not IN (SELECT zyh from follow_up_record)
+            </if>
+            <if test="followUpRecordReq.cxlx == 2">
+                And fur.sfzt = 1
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(followUpRecordReq.ztqk)">
+                And fur.ztqk = #{followUpRecordReq.ztqk}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(followUpRecordReq.jgid)">
+                And ih.jgid = #{followUpRecordReq.jgid}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="from_table">
+        <choose>
+            <when test="followUpRecordReq.cxlx == 0">
+                ih.*, dk.OFFICENAME cyks FROM im_hzry ih
+                left JOIN dic_kszd dk on ih.BRKS = dk.ID
+            </when>
+            <otherwise>
+                fur.*, ih.brxm, ih.brxb, ih.csny, ih.mqzd, ih.cyrq, ih.cyfs, ih.lxdh, dk.OFFICENAME cyks,
+                fus1.sznr sffsnr, fus2.sznr sfyynr, su.user_name hfrmc
+                FROM follow_up_record fur
+                LEFT JOIN im_hzry ih on fur.zyh = ih.zyh
+                LEFT JOIN dic_kszd dk on ih.BRKS = dk.ID
+                LEFT JOIN follow_up_sz fus1 on fus1.id = fur.sffs
+                LEFT JOIN follow_up_sz fus2 on fus2.id = fur.sfyy
+                LEFT JOIN sys_user su on fur.hfr = su.user_id
+            </otherwise>
+        </choose>
+    </sql>
+
+
+    <select id="statistics" resultType="FollowUpStatisticsResp">
+        select
+            cyrs_view.OFFICENAME ksmc,
+            IFNULL(cyrs_view.cyrs, 0) cyrs,
+            IFNULL(sfzrs_view.sfzrs, 0) sfzrs,
+            IFNULL(cgsfrs_view.cgsfrs, 0) cgsfrs,
+            (IFNULL(sfzrs_view.sfzrs, 0) - IFNULL(cgsfrs_view.cgsfrs, 0)) sfrs,
+            IFNULL(ROUND(sfzrs*100/cyrs, 2), 0)sfl,
+            IFNULL(ROUND(cgsfrs*100/sfzrs, 2), 0) sfcgl,
+            IFNULL(myrs_view.myrs, 0) myrs,
+            (IFNULL(cgsfrs_view.cgsfrs, 0) - IFNULL(myrs_view.myrs, 0)) bmyrs,
+            IFNULL(ROUND(myrs*100/cgsfrs, 2), 0) hzmyd
+            from (SELECT count(*) cyrs, dk.OFFICENAME, ih.BRKS FROM im_hzry ih
+            left JOIN dic_kszd dk on ih.BRKS = dk.ID
+            where ih.cypb >= 8 and ih.CYRQ BETWEEN #{kssj} and #{jssj} and ih.jgid = #{jgid} and ih.zyh
+            not IN (SELECT zyh from follow_up_record) GROUP BY ih.BRKS) AS cyrs_view
+            left join
+             (SELECT count(*) sfzrs, dk.OFFICENAME, ih.BRKS FROM follow_up_record fur
+             LEFT JOIN im_hzry ih on fur.zyh = ih.zyh
+             left join dic_kszd dk on ih.BRKS = dk.ID
+              where fur.jgid = #{jgid} and ih.CYRQ BETWEEN #{kssj} and #{jssj}
+              GROUP BY ih.BRKS) AS sfzrs_view
+             on cyrs_view.BRKS = sfzrs_view.BRKS
+             left join
+             (SELECT count(*) myrs, dk.OFFICENAME, ih.BRKS FROM follow_up_record fur
+               LEFT JOIN im_hzry ih on fur.zyh = ih.zyh
+               left join dic_kszd dk on ih.BRKS = dk.ID
+              where fur.jgid = #{jgid} and ih.CYRQ  BETWEEN #{kssj} and #{jssj} and fur.ztqk = 1
+              GROUP BY ih.BRKS) AS myrs_view
+             on cyrs_view.BRKS = myrs_view.BRKS
+            left join
+             (SELECT count(*) cgsfrs, dk.OFFICENAME, ih.BRKS FROM follow_up_record fur
+              LEFT JOIN im_hzry ih on fur.zyh = ih.zyh
+              left join dic_kszd dk on ih.BRKS = dk.ID
+              where fur.jgid = #{jgid} and ih.CYRQ  BETWEEN #{kssj} and #{jssj} and fur.sfzt = 0
+              GROUP BY ih.BRKS) AS cgsfrs_view
+             on cyrs_view.BRKS = cgsfrs_view.BRKS
+    </select>
+
+    <select id="countUsed" resultType="java.lang.Integer">
+        select count(*) from follow_up_record where sffs = #{id} or sfyy = #{id}
+    </select>
+
+</mapper>

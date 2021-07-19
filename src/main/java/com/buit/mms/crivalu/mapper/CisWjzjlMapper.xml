@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 危急值记录表 -->
+<mapper namespace="com.buit.mms.crivalu.dao.CisWjzjlDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        WJZDH as wjzdh,BRLX as brlx,MZH as mzh,ZYH as zyh,BQDM as bqdm,KSDM as ksdm,CH as ch,FSSJ as fssj,FSRDM as fsrdm,WJZXMDM as wjzxmdm,WJZXMMC as wjzxmmc,WJZJG as wjzjg,ZCCKZ as zcckz,BGH as bgh,JSSJ as jssj,JSRDM as jsrdm,TZSJ as tzsj,TZYSDM as tzysdm,CZSJ as czsj,CZRDM as czrdm,CZCS as czcs,ZT as zt,YLJGD as yljgd,MESSID as messid,YSMESSID as ysmessid
+    </sql>
+
+    <insert id="insert" keyColumn="wjzdh" keyProperty="wjzdh" useGeneratedKeys="true">
+        INSERT INTO CIS_WJZJL (
+            WJZDH ,
+            BRLX ,
+            MZH ,
+            ZYH ,
+            BQDM ,
+            KSDM ,
+            CH ,
+            FSSJ ,
+            FSRDM ,
+            WJZXMDM ,
+            WJZXMMC ,
+            WJZJG ,
+            ZCCKZ ,
+            BGH ,
+            JSSJ ,
+            JSRDM ,
+            TZSJ ,
+            TZYSDM ,
+            CZSJ ,
+            CZRDM ,
+            CZCS ,
+            ZT ,
+            YLJGD 
+        ) VALUES (
+            #{wjzdh} ,
+            #{brlx} ,
+            #{mzh} ,
+            #{zyh} ,
+            #{bqdm} ,
+            #{ksdm} ,
+            #{ch} ,
+            #{fssj} ,
+            #{fsrdm} ,
+            #{wjzxmdm} ,
+            #{wjzxmmc} ,
+            #{wjzjg} ,
+            #{zcckz} ,
+            #{bgh} ,
+            #{jssj} ,
+            #{jsrdm} ,
+            #{tzsj} ,
+            #{tzysdm} ,
+            #{czsj} ,
+            #{czrdm} ,
+            #{czcs} ,
+            #{zt} ,
+            #{yljgd} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE CIS_WJZJL SET
+            BRLX = #{brlx} ,
+            MZH = #{mzh} ,
+            ZYH = #{zyh} ,
+            BQDM = #{bqdm} ,
+            KSDM = #{ksdm} ,
+            CH = #{ch} ,
+            FSSJ = #{fssj} ,
+            FSRDM = #{fsrdm} ,
+            WJZXMDM = #{wjzxmdm} ,
+            WJZXMMC = #{wjzxmmc} ,
+            WJZJG = #{wjzjg} ,
+            ZCCKZ = #{zcckz} ,
+            BGH = #{bgh} ,
+            JSSJ = #{jssj} ,
+            JSRDM = #{jsrdm} ,
+            TZSJ = #{tzsj} ,
+            TZYSDM = #{tzysdm} ,
+            CZSJ = #{czsj} ,
+            CZRDM = #{czrdm} ,
+            CZCS = #{czcs} ,
+            ZT = #{zt} ,
+            YLJGD = #{yljgd} 
+        WHERE 
+            WJZDH = #{wjzdh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM CIS_WJZJL WHERE
+        WJZDH = #{wjzdh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM CIS_WJZJL <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="CisWjzjl">
+        SELECT <include refid="columns" />
+            FROM CIS_WJZJL 
+            WHERE 
+        WJZDH = #{wjzdh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wjzdh)"> -->
+<!--                     AND WJZDH = #{wjzdh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(brlx)"> 
+                     AND BRLX = #{brlx} 
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzh)"> -->
+<!--                     AND MZH = #{mzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zyh)"> -->
+<!--                     AND ZYH = #{zyh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bqdm)"> -->
+<!--                     AND BQDM = #{bqdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ch)"> -->
+<!--                     AND CH = #{ch} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fssj)"> -->
+<!--                     AND FSSJ = #{fssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fsrdm)"> -->
+<!--                     AND FSRDM = #{fsrdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wjzxmdm)"> -->
+<!--                     AND WJZXMDM = #{wjzxmdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wjzxmmc)"> -->
+<!--                     AND WJZXMMC = #{wjzxmmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wjzjg)"> -->
+<!--                     AND WJZJG = #{wjzjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zcckz)"> -->
+<!--                     AND ZCCKZ = #{zcckz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bgh)"> -->
+<!--                     AND BGH = #{bgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jssj)"> -->
+<!--                     AND JSSJ = #{jssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jsrdm)"> -->
+<!--                     AND JSRDM = #{jsrdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tzsj)"> -->
+<!--                     AND TZSJ = #{tzsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tzysdm)"> -->
+<!--                     AND TZYSDM = #{tzysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czsj)"> -->
+<!--                     AND CZSJ = #{czsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czrdm)"> -->
+<!--                     AND CZRDM = #{czrdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czcs)"> -->
+<!--                     AND CZCS = #{czcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND ZT = #{zt} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(yljgd)"> 
+                     AND YLJGD = #{yljgd} 
+                </if> 
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM CIS_WJZJL 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="CisWjzjl">
+        SELECT <include refid="columns" />
+        FROM CIS_WJZJL 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <!-- 危急值管理质量报表 -->
+    <select id="queryWjzQualityReport" resultType="com.buit.mms.crivalu.response.CisWjzjlQualityReportResp">
+        select case brlx when 1 then ksdm else bqdm end as bqks,
+			count(1) as wjzrc,
+			sum(case zt when 3 then 1 else 0 end) as czrc,
+			concat(round(sum(case zt when 3 then 1 else 0 end) / count(1) * 100, 2),'%') as czbl,
+			round(sum(unix_timestamp(czsj) - unix_timestamp(fssj)) / 60 / sum(case zt when 3 then 1 else 0 end), 1 ) czpjsc,
+			max(round((unix_timestamp( czsj ) - unix_timestamp( fssj ))/ 60, 1)) czzcsc
+		from cis_wjzjl 
+		where yljgd = #{jgid}
+		<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+       		and date_format(fssj,'%Y-%m-%d') &gt;= #{beginDate}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+        	and date_format(fssj,'%Y-%m-%d') &lt;= #{endDate}
+        </if>
+		<if test="@sqlt.Ognl@isNotEmpty(bqdm)">
+       		and bqdm = #{bqdm}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+       		and ksdm = #{ksdm}
+        </if>
+		group by ksdm, brlx, bqdm 
+    </select>
+    
+    <!-- 查询危急值记录 -->
+    <select id="queryCriticalValueRecord" resultType="com.buit.mms.crivalu.response.CisWjzjlResp">
+        select * from (
+	        select a.wjzdh,
+	        	b.zyhm,
+				b.brxm,
+				b.brxb,
+				b.rynl,
+				a.bqdm,
+				a.ch,
+				a.ksdm,
+				a.fssj,
+				a.fsrdm,
+				a.wjzxmmc,
+				a.wjzjg,
+				a.jssj,
+				a.jsrdm,
+				a.tzsj,
+				a.tzysdm,
+				a.czsj,
+				a.czrdm,
+				a.czcs,
+				a.zt,
+				a.yljgd   
+			from
+				cis_wjzjl a,
+				im_hzry b 
+			where
+				a.zyh = b.zyh 
+			union all
+			select a.wjzdh,
+				a.mzh as zyhm,
+				b.brxm,
+				b.brxb,
+				concat( floor( datediff( curdate(), b.csny )/ 365.2422 ), '岁' ) as rynl,
+				a.bqdm,
+				a.ch,
+				a.ksdm,
+				a.fssj,
+				a.fsrdm,
+				a.wjzxmmc,
+				a.wjzjg,
+				a.jssj,
+				a.jsrdm,
+				a.tzsj,
+				a.tzysdm,
+				a.czsj,
+				a.czrdm,
+				a.czcs,
+				a.zt,
+				a.yljgd 
+			from
+				cis_wjzjl a,
+				mpi_brda b 
+			where
+				a.mzh = b.mzhm
+		) m where m.yljgd = #{jgid}
+		<if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+       		and date_format(m.fssj,'%Y-%m-%d') &gt;= #{beginDate}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+        	and date_format(m.fssj,'%Y-%m-%d') &lt;= #{endDate}
+        </if>
+		<if test="@sqlt.Ognl@isNotEmpty(bqdm)">
+       		and m.bqdm = #{bqdm}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+       		and m.ksdm = #{ksdm}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zt)">
+       		and m.zt = #{zt}
+        </if>
+    </select>
+    
+    <!-- 危急值更新接收信息 -->
+    <update id="updateReceiveInfo" >
+  		update cis_wjzjl set jssj = sysdate(), jsrdm = #{jsrdm}, zt = 1 where wjzdh = #{wjzdh}
+  		and (jssj is null or jsrdm is  null)
+    </update>
+    
+    <!-- 危急值更新通知信息 -->
+    <update id="updateNoticeInfo" >
+  		update cis_wjzjl set tzsj = sysdate(), tzysdm = #{tzysdm}, zt = 2 where wjzdh = #{wjzdh}
+  		and (tzsj is null or tzysdm is null)
+    </update>
+    
+    <!-- 危急值更新通知和处置信息 -->
+    <update id="updateNoticeDealInfo" >
+  		update cis_wjzjl set tzsj = sysdate(), tzysdm = #{czrdm}, 
+  		czsj = sysdate(), czrdm = #{czrdm}, czcs = #{czcs}, zt = 3 where wjzdh = #{wjzdh}
+  		and tzsj is null and czsj is null
+    </update>
+    
+    <!-- 危急值更新处置信息 -->
+    <update id="updateDealInfo" >
+    	update cis_wjzjl set czsj = sysdate(), czrdm = #{czrdm}, czcs = #{czcs}, zt = 3 where wjzdh = #{wjzdh}
+    	and czsj is null
+    </update>
+    
+    <!-- 定时查询病人危机值信息 -->
+    <select id="queryCisWjzHzInfo" resultType="java.util.HashMap">
+	    select a.WJZDH as WJZDH,
+	       a.BQDM as BQDM,
+	       a.KSDM as KSDM,
+	       b.BRXM as BRXM, 
+		   case b.BRXB  when 1 then '男' when 2 then '女' else '未知' end as XB, 
+		   b.BRCH as BRCH, 
+		   c.OFFICENAME as OFFICENAME,
+		   a.WJZXMMC as WJZXMMC,
+		   a.FSRDM as FSRDM,
+		   d.PERSONNAME as PERSONNAME
+	  	   from cis_wjzjl a inner join im_hzry b on a.zyh  = b.zyh
+		left join dic_kszd c on b.brks  = c.id
+		left join hr_personnel d on d.personid = a.fsrdm  
+		where a.brlx = 2
+		and a.yljgd = #{jgid}
+		and a.zt = 0
+		and a.messid is null
+		and a.ysmessid is null
+    </select>
+    
+    <!-- 危急值更新返回护士站消息id -->
+    <update id="updateWjzMessIdByWjzdh" >
+  		update cis_wjzjl set messid = #{messid} where wjzdh = #{wjzdh}
+    </update>
+    
+    <!-- 危急值更新返回医生站消息id -->
+    <update id="updateWjzYsMessIdByWjzdh" >
+  		update cis_wjzjl set ysmessid = #{ysmessid} where wjzdh = #{wjzdh}
+    </update>
+</mapper>
+
